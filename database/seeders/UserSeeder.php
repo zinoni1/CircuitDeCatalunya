@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Cargos;
 
 class UserSeeder extends Seeder
 {
@@ -17,7 +18,10 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('12345678'), // Cambia 'password' por la contraseña deseada
+            'password' => Hash::make('12345678'),
+            'rol' => 'admin',
+            'cargo_id' => Cargos::where('nombre', 'Administrador')->first()->id
+            // Cambia 'password' por la contraseña deseada
         ]);
     }
 }

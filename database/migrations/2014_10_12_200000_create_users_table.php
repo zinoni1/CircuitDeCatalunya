@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->enum('rol', ['admin', 'user'])->default('user');
-            $table->foreignId('cargos_id')->references('id')->on('cargos')->onDelete('cascade');
+            $table->foreignId('cargo_id')->constrained('cargos');
             $table->timestamps();
         });
     }
