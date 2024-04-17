@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'rol' => 'admin',
             'cargo_id' => Cargos::where('nombre', 'Administrador')->first()->id
-            // Cambia 'password' por la contraseña deseada
         ]);
     }
 }
