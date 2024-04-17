@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('zonas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nombre');
+            $table->foreignId('categorias_id')->references('id')->on('categorias')->onDelete('cascade');
         });
     }
 
