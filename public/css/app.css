@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary-color: #E00707;
+  --secondary-color: white;
+  --trasparent-color: #ffffff77;
+  --hoverlink-color: #ffffff1c;
+  --shadow-color:rgba(151, 151, 151, 0.445);
+  --grey-color: #dcdcdc;
+}
+
+body {
+  font-family: 'Exo 2';
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+.fw {
+  font-weight: 600 !important;
+}
+
+.shadow{
+  box-shadow: 0px 0px 10px 2px var(--shadow-color) !important;
+}
+
+@media (max-width: 300px) {
+  .img-responsive {
+    max-width: 10px !important;
+    height: auto;
+  }
+
+  .login-responsive {
+    padding: 10px !important;
+    padding-top: 2px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .img-responsive {
+    max-width: 200px !important;
+    height: auto;
+  }
+
+  .login-responsive {
+    padding: 10px !important;
+    padding-top: 2px !important;
+  }
+}
+
+/* Para pantallas más pequeñas que 576px */
+@media (max-width: 575.98px) {
+  .img-responsive {
+    max-width: 220px !important;
+    height: auto;
+  }
+
+  .login-responsive {
+    padding: 10px !important;
+    padding-top: 2px !important;
+  }
+}
+
+/* Para pantallas más grandes que 576px hasta 992px */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .img-responsive {
+    max-width: 400px !important;
+    height: auto;
+  }
+
+  .login-responsive {
+    padding: 5px !important;
+    padding-top: 2px !important;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 991.98px) {
+  .img-responsive {
+    max-width: 400px !important;
+    height: auto;
+  }
+
+  .login-responsive {
+    padding: 50px !important;
+    padding-top: 2px !important;
+  }
+}
+
+input {
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid var(--grey-color);
+  box-shadow: 0px solid var(--transparent-color) !important;
+  transition: border-color 0.3s ease-in-out;
+}
+
+
+/* Estilos para el input cuando está enfocado */
+input:focus {
+  border-bottom: 2px solid var(--primary-color) !important;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input[type="checkbox"] {
+  border: 1px solid var(--primary-color) !important;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para el marcador del checkbox cuando está activo */
+input[type="checkbox"]:checked {
+  background-color: red !important;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para los botones */
+.btn {
+  border-radius: 3px;
+  padding-left: 2.5vw;
+  padding-right: 2.5vw;
+  border: 2px solid var(--secondary-color);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para los botones primarios */
+.btn-primary {
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  color: var(--primary-color);
+  background-color: var(--transparent-color);
+  border: 2px solid var(--primary-color);
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding-left: 2.5vw !important;
+    padding-right: 2.5vw !important;
+  }
+}
+
+
+/* Estilos para los botones de navegación */
+.btn-nav {
+  color: var(--primary-color);
+  background-color: white;
+}
+
+.btn-nav:hover {
+  color: var(--secondary-color);
+  background-color: var(--transparent-color);
+  border: 2px solid var(--secondary-color);
+}
+
+/* Login Style */
+.bg-login {
+  background-size: cover;
+  background-position: right !important;
+}
