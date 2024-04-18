@@ -25,68 +25,6 @@ h1 {
   box-shadow: 0px 0px 10px 2px var(--shadow-color) !important;
 }
 
-@media (max-width: 300px) {
-  .img-responsive {
-    max-width: 10px !important;
-    height: auto;
-  }
-
-  .login-responsive {
-    padding: 10px !important;
-    padding-top: 2px !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .img-responsive {
-    max-width: 200px !important;
-    height: auto;
-  }
-
-  .login-responsive {
-    padding: 10px !important;
-    padding-top: 2px !important;
-  }
-}
-
-/* Para pantallas más pequeñas que 576px */
-@media (max-width: 575.98px) {
-  .img-responsive {
-    max-width: 220px !important;
-    height: auto;
-  }
-
-  .login-responsive {
-    padding: 10px !important;
-    padding-top: 2px !important;
-  }
-}
-
-/* Para pantallas más grandes que 576px hasta 992px */
-@media (min-width: 576px) and (max-width: 991.98px) {
-  .img-responsive {
-    max-width: 400px !important;
-    height: auto;
-  }
-
-  .login-responsive {
-    padding: 5px !important;
-    padding-top: 2px !important;
-  }
-}
-
-@media (min-width: 760px) and (max-width: 991.98px) {
-  .img-responsive {
-    max-width: 400px !important;
-    height: auto;
-  }
-
-  .login-responsive {
-    padding: 50px !important;
-    padding-top: 2px !important;
-  }
-}
-
 input {
   border-radius: 0;
   border: none;
@@ -160,4 +98,47 @@ input[type="checkbox"]:checked {
 .bg-login {
   background-size: cover;
   background-position: right !important;
+}
+
+.logo_bg {
+  max-width: 400px;
+  z-index: 10;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.337); /* Ajusta el nivel de opacidad aquí (0.5 = 50%) */
+}
+
+.col-md-7.animate {
+  animation: col-md-7-animation 2s forwards;
+}
+
+.col-md-5.animate {
+  animation: col-md-5-animation 2s forwards;
+  opacity: 0;
+}
+
+@keyframes col-md-7-animation {
+  0% {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  100% {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }
+}
+
+@keyframes col-md-5-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
