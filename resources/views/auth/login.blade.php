@@ -1,13 +1,12 @@
 <x-guest-layout>
-
     <div class="container-fluid h-100">
         <div class="row h-100">
-            <div class="col-md-7 h-100 bg-login d-flex align-items-center justify-content-center position-relative" style="background-image: url('{{ asset("images/login-bg.jpeg") }}');">
+            <div id="first-column" class="col-md-12 h-100 bg-login d-flex align-items-center justify-content-center position-relative" style="background-image: url('{{ asset("images/login-bg.jpeg") }}');">
                 <div class="overlay"></div>
                 <img src="{{ asset("images/logo.png") }}" alt="Circuit de Catalunya" size="10px" class="img-fluid logo_bg">
             </div>
 
-            <div class="col-md-5 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div id="second-column" class="col-md-5 h-100 d-flex flex-column align-items-center justify-content-center d-none">
                 <h1 class="mb-4">Iniciar Sessió</h1>
 
                 <div class="w-100">
@@ -57,3 +56,14 @@
         </div>
     </div>
 </x-guest-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Agrega la clase d-none a la segunda columna al inicio
+        document.getElementById("second-column").classList.add("d-none");
+        // Espera 7 segundos antes de mostrar la segunda columna
+        setTimeout(function() {
+            document.getElementById("second-column").classList.remove("d-none");
+        }, 4500);
+    });
+</script>
