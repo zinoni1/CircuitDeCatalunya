@@ -2,6 +2,7 @@
 
 :root {
   --primary-color: #E00707;
+  --focusVisible-color:rgb(251, 71, 71);
   --secondary-color: white;
   --trasparent-color: #ffffff77;
   --hoverlink-color: #ffffff1c;
@@ -21,9 +22,7 @@ h1 {
   font-weight: 600 !important;
 }
 
-.shadow{
-  box-shadow: 0px 0px 10px 2px var(--shadow-color) !important;
-}
+
 
 input {
   border-radius: 0;
@@ -67,32 +66,36 @@ input[type="checkbox"]:checked {
   border-radius: 5px;
   font-weight: 700;
 }
+.btn-primary:focus-visible {
+  background-color: var(--focusVisible-color);
+  box-shadow: 0px var(--primary-color) !important;
+  border-color: var(--focusVisible-color) !important;
+}
 
 .btn-primary:hover {
   color: var(--primary-color);
   background-color: var(--transparent-color);
   border: 2px solid var(--primary-color);
 }
-
-@media (min-width: 992px) {
-  .navbar-expand-lg .navbar-nav .nav-link {
-    padding-left: 2.5vw !important;
-    padding-right: 2.5vw !important;
-  }
+.btn-primary:active {
+  color: var(--primary-color) !important;
+  background-color: var(--transparent-color) !important;
+  border: 2px solid var(--primary-color) !important;
 }
 
+/* Nav Style */
 
-/* Estilos para los botones de navegación */
-.btn-nav {
-  color: var(--primary-color);
-  background-color: white;
+.border-primary{
+  border-color: var(--primary-color) !important;
+  transition: 0.5s all;
+
+}
+.border-primary:hover{
+  background-color: #00000014;
+  border-radius: 10px;
+  transition: 0.5s all;
 }
 
-.btn-nav:hover {
-  color: var(--secondary-color);
-  background-color: var(--transparent-color);
-  border: 2px solid var(--secondary-color);
-}
 
 /* Login Style */
 .bg-login {
