@@ -114,31 +114,39 @@ input[type="checkbox"]:checked {
   background-color: rgba(0, 0, 0, 0.337); /* Ajusta el nivel de opacidad aquí (0.5 = 50%) */
 }
 
-.col-md-7.animate {
+.col-md-7.animate, .col-md-5.animate {
   animation: col-md-7-animation 2s forwards;
-}
-
-.col-md-5.animate {
-  animation: col-md-5-animation 2s forwards;
+  animation: col-md-5-animation 3s forwards;
   opacity: 0;
 }
 
-@keyframes col-md-7-animation {
+/* Animación para la primera columna */
+@keyframes expandFirstColumn {
   0% {
-    flex: 0 0 100%;
-    max-width: 100%;
+      width: 100%;
   }
   100% {
-    flex: 0 0 58.333333%;
-    max-width: 58.333333%;
+      width: 58.333333%;
   }
 }
 
-@keyframes col-md-5-animation {
+/* Animación para la segunda columna */
+@keyframes fadeInSecondColumn {
   0% {
-    opacity: 0;
+      opacity: 0;
   }
   100% {
-    opacity: 1;
+      opacity: 1;
   }
+}
+
+/* Aplica la animación a la primera columna */
+#first-column {
+  animation: expandFirstColumn 2s ease-out forwards;
+  animation-delay: 2.5s; /* Retraso de 2 segundos */
+}
+
+/* Aplica la animación a la segunda columna */
+#second-column {
+  animation: fadeInSecondColumn 2s ease-out forwards;
 }
