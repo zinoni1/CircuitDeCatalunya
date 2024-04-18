@@ -64,6 +64,6 @@
         // Espera 7 segundos antes de mostrar la segunda columna
         setTimeout(function() {
             document.getElementById("second-column").classList.remove("d-none");
-        }, 4500);
+        }, 4000);
     });
 </script>
