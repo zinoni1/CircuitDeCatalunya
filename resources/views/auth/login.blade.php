@@ -3,7 +3,7 @@
         <div class="row h-100">
             <div id="first-column" class="col-md-12 h-100 bg-login d-flex align-items-center justify-content-center position-relative" style="background-image: url('{{ asset("images/login-bg.jpeg") }}');">
                 <div class="overlay"></div>
-                <img src="{{ asset("images/logo.png") }}" alt="Circuit de Catalunya" size="10px" class="img-fluid logo_bg">
+                <img src="{{ asset("images/login-logo.png") }}" alt="Circuit de Catalunya" size="10px" class="img-fluid logo_bg">
             </div>
 
             <div id="second-column" class="col-md-5 h-100 d-flex flex-column align-items-center justify-content-center d-none">
