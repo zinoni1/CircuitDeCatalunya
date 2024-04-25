@@ -12,4 +12,5 @@
             </div>
         </div>
     </div>
+    <a href="{{ route('tipo-averias.index') }}" class="btn btn-primary">Ver Tipo de Averías</a>
 </x-app-layout>
