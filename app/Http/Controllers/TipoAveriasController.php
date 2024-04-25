@@ -12,7 +12,8 @@ class TipoAveriasController extends Controller
      */
     public function index()
     {
-        //
+        $tipoAverias = tipo_averias::all();
+        return view('tipo_averias.index', ['tipoAverias' => $tipoAverias]);
     }
 
     /**
@@ -28,7 +29,16 @@ class TipoAveriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:tipo_averias,nombre',
+        ]);
+
+        tipo_averias::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        return redirect()->route('tipo-averias.index')->with('success', 'Tipo de avería creado exitosamente.');
     }
 
     /**

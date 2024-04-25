@@ -2,11 +2,11 @@
 
 :root {
   --primary-color: #E00707;
-  --focusVisible-color:rgb(251, 71, 71);
+  --focusVisible-color: rgb(251, 71, 71);
   --secondary-color: white;
   --trasparent-color: #ffffff77;
   --hoverlink-color: #ffffff1c;
-  --shadow-color:rgba(151, 151, 151, 0.445);
+  --shadow-color: rgba(151, 151, 151, 0.445);
   --grey-color: #dcdcdc;
 }
 
@@ -53,8 +53,8 @@ input[type="checkbox"]:checked {
 /* Estilos para los botones */
 .btn {
   border-radius: 3px;
-  padding-left: 2.5vw;
-  padding-right: 2.5vw;
+  padding-left: 1.5vw;
+  padding-right: 1.5vw;
   border: 2px solid var(--secondary-color);
   transition: all 0.3s ease-in-out;
 }
@@ -64,8 +64,11 @@ input[type="checkbox"]:checked {
   color: var(--secondary-color);
   background-color: var(--primary-color);
   border-radius: 5px;
+  padding-top: 0.8vh;
+  padding-bottom: 0.8vh;
   font-weight: 700;
 }
+
 .btn-primary:focus-visible {
   background-color: var(--focusVisible-color);
   box-shadow: 0px var(--primary-color) !important;
@@ -77,6 +80,7 @@ input[type="checkbox"]:checked {
   background-color: var(--transparent-color);
   border: 2px solid var(--primary-color);
 }
+
 .btn-primary:active {
   color: var(--primary-color) !important;
   background-color: var(--transparent-color) !important;
@@ -85,12 +89,13 @@ input[type="checkbox"]:checked {
 
 /* Nav Style */
 
-.border-primary{
+.border-primary {
   border-color: var(--primary-color) !important;
   transition: 0.5s all;
 
 }
-.border-primary:hover{
+
+.border-primary:hover {
   background-color: #00000014;
   border-radius: 10px;
   transition: 0.5s all;
@@ -114,42 +119,73 @@ input[type="checkbox"]:checked {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.337); /* Ajusta el nivel de opacidad aquí (0.5 = 50%) */
+  background-color: rgba(0, 0, 0, 0.337);
+  /* Ajusta el nivel de opacidad aquí (0.5 = 50%) */
 }
 
-.col-md-7.animate, .col-md-5.animate {
-  animation: col-md-7-animation 2s forwards;
-  animation: col-md-5-animation 3s forwards;
+.col-md-7.animate,
+.col-md-5.animate {
+  animation: col-md-7-animation 0.5s forwards;
+  animation: col-md-5-animation 0.5s forwards;
   opacity: 0;
 }
 
 /* Animación para la primera columna */
 @keyframes expandFirstColumn {
   0% {
-      width: 100%;
+    width: 100%;
   }
+
   100% {
-      width: 58.333333%;
+    width: 58.333333%;
   }
 }
 
 /* Animación para la segunda columna */
 @keyframes fadeInSecondColumn {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
+
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 /* Aplica la animación a la primera columna */
 #first-column {
-  animation: expandFirstColumn 2s ease-out forwards;
-  animation-delay: 2.5s; /* Retraso de 2 segundos */
+  animation: expandFirstColumn 0.5s ease-out forwards;
+  animation-delay: 1.0s;
+  /* Retraso de 2 segundos */
 }
 
 /* Aplica la animación a la segunda columna */
 #second-column {
-  animation: fadeInSecondColumn 2s ease-out forwards;
+  animation: fadeInSecondColumn 0.5s ease-out forwards;
+}
+
+
+/* Generico */
+
+.modul {
+
+  margin-left: 3vh !important;
+  margin-right: 3vh !important;
+  padding: 10px !important;
+  background-color: var(--secondary-color) !important;
+  border-radius: 10px !important;
+  margin-top: 2vh;
+
+}
+
+.create-input {
+  border: 0.5px solid #d8e2eb !important;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.create-input:hover {
+  border: 0.5px solid var(--primary-color) !important;
+  border-bottom: 0.5px solid var(--primary-color) !important;
+  transition: 0.5s;
 }
