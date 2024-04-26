@@ -2,6 +2,8 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
+            <a href="{{ route('tipo-averias.index') }}" class="btn btn-primary">Ver Tipo de Averías</a>
+            <a href="{{ route('incidencias.index') }}" class="btn btn-primary">Ver Incidencias</a>
         </h2>
     </x-slot>
 
@@ -12,5 +14,4 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('tipo-averias.index') }}" class="btn btn-primary">Ver Tipo de Averías</a>
 </x-app-layout>

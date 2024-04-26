@@ -10,10 +10,13 @@ class AveriasController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        //
+        $averias = averias::all(); // Asegúrate de que este modelo exista y esté correctamente definido
+        return view('incidencias.index', compact('averias'));
     }
+
 
     /**
      * Show the form for creating a new resource.
