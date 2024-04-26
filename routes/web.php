@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\TipoAveriasController;
+use  App\Http\Controllers\AveriasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('tipo-averias', TipoAveriasController::class);
+Route::get('/incidencias', function () {
+    return view('incidencias.index', compact('averias'));
+})->name('incidencias.index');
 
+
+Route::resource('tipo-averias', TipoAveriasController::class);

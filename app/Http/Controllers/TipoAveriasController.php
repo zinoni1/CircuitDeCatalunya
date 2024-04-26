@@ -34,11 +34,15 @@ class TipoAveriasController extends Controller
             'nombre' => 'required|string|max:255|unique:tipo_averias,nombre',
         ]);
 
-        tipo_averias::create([
+        $tipoAveria = tipo_averias::create([
             'nombre' => $request->nombre,
         ]);
 
-        return redirect()->route('tipo-averias.index')->with('success', 'Tipo de avería creado exitosamente.');
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'tipoAveria' => $tipoAveria], 200);
+        } else {
+            return redirect()->route('tipo-averias.index')->with('success', 'Tipo de avería creado exitosamente.');
+        }
     }
 
     /**
@@ -68,8 +72,19 @@ class TipoAveriasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tipo_averias $tipo_averias)
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
     {
-        //
+        $tipoAveria = tipo_averias::find($id);
+        if ($tipoAveria) {
+            $tipoAveria->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
+
 }

@@ -1,42 +1,58 @@
 <x-app-layout>
 
-    <div class="modul text-right">
-        <form action="{{ route('tipo-averias.store') }}" method="post" class="d-inline-block">
-            @csrf
-            <input type="text" class="create-input" id="nombre" name="nombre" required>
-            <button type="submit" class="btn btn-primary">Crear Tipo de Avería</button>
-        </form>
-    </div>
-
-    <div class="modul">
+    <div class="modul mt-3">
+        <div class="container">
+            <h1>Tipus d'Averies</h1>
+            <form id="create-form" action="{{ route('tipo-averias.store') }}" method="post" class="d-inline-block">
+                @csrf
+                <input type="text" class="create-input" id="nombre" name="nombre" required>
+                <button type="submit" class="btn btn-primary">Crear Tipus d'Averia</button>
+            </form>
+        </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID <button class="btn btn-link" onclick="sortTable(0)"><i class="fas fa-chevron-up"></i></button></th>
-                    <th>Nombre <button class="btn btn-link" onclick="sortTable(1)"><i class="fas fa-chevron-up"></i></button></th>
-                    <th>Acciones</th>
+                    <th>
+                        ID
+                        <button class="btn btn-link" data-column-index="0" onclick="sortTable(0)"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                    </th>
+                    <th>
+                        Nom
+                        <button class="btn btn-link" data-column-index="1" onclick="sortTable(1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody id="table-body">
                 <!-- Aquí se mostrarán los datos -->
                 @foreach($tipoAverias as $tipoAveria)
-                <tr>
+                <tr id="row-{{ $tipoAveria->id }}">
                     <td>{{ $tipoAveria->id }}</td>
                     <td>{{ $tipoAveria->nombre }}</td>
+
+                    <!-- Botón de eliminar con icono de Tailwind CSS de Heroicons -->
                     <td>
-                        <!-- Botón de eliminar con icono de Tailwind CSS de Heroicons -->
-                        <button onclick="deleteRow(this)" class="text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500">
-                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M5.293 5.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 11-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        <button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="{{ $tipoAveria->id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
                         </button>
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function sortTable(columnIndex) {
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -57,12 +73,12 @@
                     /* Comprueba si las dos filas deben cambiarse de posición */
                     if (dir == "asc") {
                         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch= true;
+                            shouldSwitch = true;
                             break;
                         }
                     } else if (dir == "desc") {
                         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch= true;
+                            shouldSwitch = true;
                             break;
                         }
                     }
@@ -72,7 +88,7 @@
                     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
                     // Aumenta el contador en 1
-                    switchcount ++;
+                    switchcount++;
                 } else {
                     /* Si no se realizaron cambios y la dirección es 'asc', establece la dirección a 'desc' y ejecuta el bucle while nuevamente */
                     if (switchcount == 0 && dir == "asc") {
@@ -81,11 +97,87 @@
                     }
                 }
             }
+            // Remover clases de los botones de filtro
+            var buttons = document.querySelectorAll('.btn-link');
+            buttons.forEach(function(button) {
+                button.classList.remove('active');
+            });
+            // Agregar clase activa al botón de filtro seleccionado
+            var selectedButton = document.querySelector('.btn-link[data-column-index="' + columnIndex + '"]');
+            selectedButton.classList.add('active');
+
+            // Obtén todos los íconos de flecha
+            var icons = document.querySelectorAll('.sort-icon');
+            // Restablece todos los íconos a la flecha bidireccional
+            icons.forEach(function(icon) {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
+            });
+
+            // Obtén el ícono de flecha para la columna actual
+            var icon = selectedButton.querySelector('.sort-icon');
+
+            if (dir == 'asc') {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>'; // flecha hacia arriba
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>'; // flecha hacia abajo
+            }
         }
 
-        function deleteRow(btn) {
-            var row = btn.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        }
+        $(document).ready(function() {
+            $('#create-form').on('submit', function(e) {
+                e.preventDefault();
+
+                var nombre = $('#nombre').val();
+
+                $.ajax({
+                    url: '/tipo-averias',
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        nombre: nombre
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            var newRow = '<tr id="row-' + response.tipoAveria.id + '">' +
+                                '<td>' + response.tipoAveria.id + '</td>' +
+                                '<td>' + response.tipoAveria.nombre + '</td>' +
+                                '<td>' +
+                                '<button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="' + response.tipoAveria.id + '">' +
+                                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
+                                '</svg>' +
+                                '</button>' +
+                                '</td>' +
+                                '</tr>';
+
+                            $('#table-body').append(newRow);
+                            $('#nombre').val('');
+                        } else {
+                            alert('Error al crear el registro');
+                        }
+                    }
+                });
+            });
+
+            // Controlador de eventos para los botones de eliminar
+            $('#table-body').on('click', '.delete-button', function() {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '/tipo-averias/' + id,
+                    type: 'DELETE',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#row-' + id).remove();
+                        } else {
+                            alert('Error al eliminar el registro');
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </x-app-layout>

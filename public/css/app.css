@@ -55,7 +55,6 @@ input[type="checkbox"]:checked {
   border-radius: 3px;
   padding-left: 1.5vw;
   padding-right: 1.5vw;
-  border: 2px solid var(--secondary-color);
   transition: all 0.3s ease-in-out;
 }
 
@@ -165,19 +164,118 @@ input[type="checkbox"]:checked {
 }
 
 
-/* Generico */
+
+
+/* Tablas */
 
 .modul {
-
-  margin-left: 3vh !important;
-  margin-right: 3vh !important;
-  padding: 10px !important;
-  background-color: var(--secondary-color) !important;
-  border-radius: 10px !important;
-  margin-top: 2vh;
-
+  width: 90%;
+  max-width: 800px;
+  margin-top: 10vh !important;  
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
+.modul th,
+.modul td {
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  text-align: left;
+}
+
+.modul th {
+  background-color: #edf2f7;
+  color: #4a5568;
+}
+
+.modul tr:nth-child(even) {
+  background-color: #f7fafc;
+}
+
+.modul tr:hover {
+  background-color: #e2e8f0;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .modul,
+  .modul thead,
+  .modul tbody,
+  .modul th,
+  .modul td,
+  .modul tr {
+    display: block;
+  }
+
+  .modul thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .modul tr {
+    border: 1px solid #e2e8f0;
+  }
+
+  .modul td {
+    border: none;
+    border-bottom: 1px solid #e2e8f0;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  .modul td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .modul td:nth-of-type(1):before {
+    content: "Columna 1";
+  }
+  .modul td:nth-of-type(2):before {
+    content: "Columna 2";
+  }
+  /* ... y así sucesivamente, para cada columna en tu tabla */
+}
+
+/* Tailwind Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+}
+
+.table th {
+  background-color: #edf2f7;
+  color: #4a5568;
+  font-weight: 500;
+  text-align: left;
+}
+
+.table td {
+  background-color: #fff;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f7fafc;
+}
+
+.table tr:hover {
+  background-color: #e2e8f0;
+}
 .create-input {
   border: 0.5px solid #d8e2eb !important;
   border-radius: 5px;
