@@ -58,9 +58,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class, 'cargos_id');
-    }
 }
