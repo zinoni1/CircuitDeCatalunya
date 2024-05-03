@@ -13,10 +13,9 @@ class AveriasController extends Controller
 
     public function index()
     {
-        $averias = averias::all(); // Asegúrate de que este modelo exista y esté correctamente definido
-        return view('incidencias.index', compact('averias'));
+        $averias = averias::all();
+        return view('averias.index', compact('averias'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -30,8 +29,38 @@ class AveriasController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'descripcion' => 'required|string|max:255',
+            'data_inicio' => 'required|date',
+            'data_fin' => 'required|date',
+            'prioridad' => 'required|in:baja,media,alta',
+            'creator_id' => 'required',
+            'tecnico_asignado_id' => 'required',
+            'asignador' => 'required',
+            'zona_id' => 'required',
+            'tipo_averias_id' => 'required',
+        ]);
+
+        $averia = averias::create([
+            'descripcion' => $request->descripcion,
+            'data_inicio' => $request->data_inicio,
+            'data_fin' => $request->data_fin,
+            'prioridad' => $request->prioridad,
+            'creator_id' => $request->creator_id,
+            'tecnico_asignado_id' => $request->tecnico_asignado_id,
+            'asignador' => $request->asignador,
+            'zona_id' => $request->zona_id,
+            'tipo_averias_id' => $request->tipo_averias_id,
+        ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'averia' => $averia], 200);
+        } else {
+            return redirect()->route('averias.index')->with('success', 'Avería creada exitosamente.');
+        }
     }
 
     /**
@@ -61,8 +90,14 @@ class AveriasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(averias $averias)
+    public function destroy($id)
     {
-        //
+        $averia = averias::find($id);
+        if ($averia) {
+            $averia->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 }
