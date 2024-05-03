@@ -32,7 +32,6 @@ class UserFactory extends Factory
             'current_team_id' => null,
         ];
     }
-
     /**
      * Indicate that the model's email address should be unverified.
      */
