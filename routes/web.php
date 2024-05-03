@@ -29,9 +29,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/incidencias', function () {
-    return view('incidencias.index', compact('averias'));
-})->name('incidencias.index');
+Route::resource('averias', AveriasController::class);
+
+// Ruta para devolver la vista index.blade.php desde la ubicación especificada
 
 
 Route::resource('tipo-averias', TipoAveriasController::class);
