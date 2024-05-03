@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categorias;
+use App\Models\sector;
 use Illuminate\Http\Request;
 
-class CategoriasController extends Controller
+class SectorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class CategoriasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(categorias $categorias)
+    public function show(sector $sectors)
     {
         //
     }
@@ -42,7 +42,7 @@ class CategoriasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(categorias $categorias)
+    public function edit(sector $sectors)
     {
         //
     }
@@ -50,7 +50,7 @@ class CategoriasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, categorias $categorias)
+    public function update(Request $request, sector $sectors)
     {
         //
     }
@@ -58,7 +58,7 @@ class CategoriasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(categorias $categorias)
+    public function destroy(sector $sectors)
     {
         //
     }

@@ -1,6 +1,15 @@
 <x-app-layout>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+    <div class="container-fluid pt-2 h3">
+        <div class="row">
+            <div class="col">
+                <h1 class="mr-auto">Incidencies</h1>
+            </div>
+            <div class="col text-right">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Incidencia</button>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -76,9 +85,6 @@
     </div>
 
     <div class="modul-lg mt-3">
-        <div class="container">
-            <h1>Tipus d'Averies</h1>
-        </div>
         <table class="table" id="miTabla">
             <thead>
                 <tr>
@@ -97,18 +103,14 @@
                             </svg>
                         </button>
                     </th>
-                    <!-- Add table headers for the missing fields -->
-                    <th>Descripción</th>
+                    <th>Tipo Averias</th>
                     <th>Fecha de Inicio</th>
                     <th>Fecha de Fin</th>
                     <th>Prioridad</th>
-                    <th>Imagen</th>
                     <!-- Add table headers for the remaining foreign keys -->
-                    <th>Creator ID</th>
-                    <th>Técnico Asignado ID</th>
-                    <th>Asignador</th>
-                    <th>Zona ID</th>
-                    <th>Tipo Averias ID</th>
+
+                    <th>Técnico Asignado</th>
+                    <th>Zona</th>
                     <th></th>
                 </tr>
             </thead>
@@ -117,19 +119,14 @@
                 @foreach($averias as $averia)
                 <tr id="row-{{ $averia->id }}">
                     <td>{{ $averia->id }}</td>
-                    <td>{{ $averia->nombre }}</td>
-                    <!-- Add table cells for the missing fields -->
-                    <td>{{ $averia->descripcion }}</td>
+                    <td>{{ $averia->Incidencia }}</td>
+                    <td>{{ $averia->tipo_averias_id }}</td>
                     <td>{{ $averia->data_inicio }}</td>
                     <td>{{ $averia->data_fin }}</td>
                     <td>{{ $averia->prioridad }}</td>
-                    <td>{{ $averia->imagen }}</td>
                     <!-- Add table cells for the remaining foreign keys -->
-                    <td>{{ $averia->creator_id }}</td>
                     <td>{{ $averia->tecnico_asignado_id }}</td>
-                    <td>{{ $averia->asignador }}</td>
                     <td>{{ $averia->zona_id }}</td>
-                    <td>{{ $averia->tipo_averias_id }}</td>
                     <!-- Botón de eliminar con icono de Tailwind CSS de Heroicons -->
                     <td>
                         <button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="{{ $averia->id }}">

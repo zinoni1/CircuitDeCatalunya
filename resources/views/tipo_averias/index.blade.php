@@ -1,14 +1,24 @@
 <x-app-layout>
-
-    <div class="modul mt-3">
-        <div class="container">
-            <h1>Tipus d'Averies</h1>
-            <form id="create-form" action="{{ route('tipo-averias.store') }}" method="post" class="d-inline-block">
-                @csrf
-                <input type="text" class="create-input" id="nombre" name="nombre" required>
-                <button type="submit" class="btn btn-primary">Crear Tipus d'Averia</button>
-            </form>
+    <div class="modul container p-3">
+        <div class="row w-100">
+            <div class="col-auto d-flex align-items-center">
+                <h1>Tipus d'Averies</h1>
+            </div>
+            <div class="col text-right">
+                <form id="create-form" action="{{ route('tipo-averias.store') }}" method="post" class="row">
+                    @csrf
+                    <div class="col">
+                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="col-auto d-flex align-items-center">
+                        <button type="submit" class="w-100 btn btn-primary">Crear Tipus d'Averia</button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
+
+    <div class="modul">
         <table class="table">
             <thead>
                 <tr>

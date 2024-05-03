@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('averias', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('Incidencia');
             $table->string('descripcion');
             $table->date('data_inicio');
             $table->date('data_fin');
