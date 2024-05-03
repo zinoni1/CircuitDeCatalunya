@@ -35,3 +35,4 @@ Route::resource('averias', AveriasController::class);
 
 
 Route::resource('tipo-averias', TipoAveriasController::class);
+Route::resource('averias', AveriasController::class);

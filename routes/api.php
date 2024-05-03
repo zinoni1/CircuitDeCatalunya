@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\TipoAveriasController;
+use App\Http\Controllers\AveriasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +24,7 @@ Route::get('test', [ApiController::class, 'index']);
 Route::get('login', [ApiController::class, 'index2']);
 Route::get('verify/{email}/{password}', [ApiController::class, 'verifyCredentials']);
 
+Route::resource('tipo-averias', TipoAveriasController::class);
+Route::resource('averias', AveriasController::class);
+Route::get('tipo-averias-android', [TipoAveriasController::class, 'indexAndroid']);
+Route::get('averias-android', [AveriasController::class, 'indexAndroid']);

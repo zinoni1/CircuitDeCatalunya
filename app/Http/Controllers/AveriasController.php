@@ -16,6 +16,11 @@ class AveriasController extends Controller
         $averias = averias::all();
         return view('averias.index', compact('averias'));
     }
+    public function indexAndroid()
+{
+    $averias = averias::all();
+    return response()->json($averias, 200);
+}
 
     /**
      * Show the form for creating a new resource.

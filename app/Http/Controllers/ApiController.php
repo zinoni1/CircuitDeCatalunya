@@ -40,14 +40,15 @@ class ApiController extends Controller
 public function verifyCredentials($email, $password){
     $user = User::where('email', $email)->first();
     Hash::make($password);
+    $id = $user->id;
     if ($user) {
         if (password_verify($password, $user->password)) {
-            return response()->json(true, 200);
+            return response()->json($id, 200);
         } else {
             return response()->json(false, 401);
         }
     } else {
-        return response()->json(['message' => 'Usuario no encontrado'], 404);
+        return response()->json(false, 404);
     }
 }
 
