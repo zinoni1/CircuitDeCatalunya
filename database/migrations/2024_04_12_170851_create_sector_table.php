@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zonas', function (Blueprint $table) {
+        Schema::create('sectores', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('nombre');
-            $table->foreignId('sector_id')->references('id')->on('sector')->onDelete('cascade');
+            $table->unsignedBigInteger('zona_id'); // Clave externa a la tabla zonas
+
+            $table->foreign('zona_id')->references('id')->on('zonas'); // Establece la relación
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zonas');
+        Schema::dropIfExists('sector');
     }
 };
