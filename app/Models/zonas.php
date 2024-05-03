@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Zona extends Model
+class zonas extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,8 @@ class Zona extends Model
         'nombre'
     ];
 
-    public function categoria()
+    public function sector()
     {
-        return $this->belongsTo(Categoria::class, 'categorias_id');
+        return $this->belongsTo(sector::class, 'sector_id');
     }
 }
