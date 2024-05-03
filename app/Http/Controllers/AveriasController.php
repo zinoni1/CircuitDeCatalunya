@@ -34,9 +34,9 @@ class AveriasController extends Controller
         // Validar los datos del formulario
         $request->validate([
             'Incidencia' => 'required|string|max:255',
-            'descripcion' => 'required|string|max:255',
+            'descripcion' => 'string|max:255',
             'data_inicio' => 'required|date',
-            'data_fin' => 'required|date',
+            'data_fin' => 'date',
             'prioridad' => 'required|in:baja,media,alta',
             'creator_id' => 'required',
             'tecnico_asignado_id' => 'required',

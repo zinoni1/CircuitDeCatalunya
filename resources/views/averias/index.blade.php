@@ -26,8 +26,8 @@
                         <form id="form-id" method="post">
                             @csrf
                             <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                                <label for="nombre">Incidencia</label>
+                                <input type="text" class="form-control" id="Incidencia" placeholder="Nombre">
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
@@ -147,7 +147,7 @@
             $('#form-id').on('submit', function(e) {
                 e.preventDefault();
 
-                var nombre = $('#nombre').val();
+                var Incidencia = $('#Incidencia').val();
                 var descripcion = $('#descripcion').val();
                 var data_inicio = $('#data_inicio').val();
                 var data_fin = $('#data_fin').val();
@@ -164,7 +164,7 @@
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",
-                        nombre: nombre,
+                        Incidencia: Incidencia,
                         descripcion: descripcion,
                         data_inicio: data_inicio,
                         data_fin: data_fin,
