@@ -17,7 +17,7 @@ class CargosFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            //Test
         ];
     }
 }
