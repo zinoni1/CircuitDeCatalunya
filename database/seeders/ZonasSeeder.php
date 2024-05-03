@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\zonas;
+
 
 class ZonasSeeder extends Seeder
 {
@@ -12,12 +14,12 @@ class ZonasSeeder extends Seeder
      */
     public function run()
     {
-        Zona::create(['nombre' => 'pista']);
-        Zona::create(['nombre' => 'organitzacio pado']);
-        Zona::create(['nombre' => 'public nord']);
-        Zona::create(['nombre' => 'public sud']);
-        Zona::create(['nombre' => 'public este']);
-        Zona::create(['nombre' => 'public oeste']);
-        Zona::create(['nombre' => 'aparcament']);
+        zonas::create(['nombre' => 'pista']);
+        zonas::create(['nombre' => 'organitzacio pado']);
+        zonas::create(['nombre' => 'public nord']);
+        zonas::create(['nombre' => 'public sud']);
+        zonas::create(['nombre' => 'public este']);
+        zonas::create(['nombre' => 'public oeste']);
+        zonas::create(['nombre' => 'aparcament']);
     }
 }
