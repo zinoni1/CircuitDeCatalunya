@@ -5,7 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class zonas extends Model
+class Zona extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nombre'
+    ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categorias_id');
+    }
 }

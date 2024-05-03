@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\tipo_averias;
 use Illuminate\Database\Seeder;
 
 class TipoAveriasSeeder extends Seeder
@@ -12,6 +12,7 @@ class TipoAveriasSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        tipo_averias::create(['nombre' => 'correctiu']);
+        tipo_averias::create(['nombre' => 'preventiu']);
     }
 }
