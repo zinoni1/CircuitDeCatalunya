@@ -30,5 +30,8 @@ Route::middleware([
 });
 
 Route::resource('averias', AveriasController::class);
-Route::resource('sectors', AveriasController::class);
+
+// Ruta para devolver la vista index.blade.php desde la ubicación especificada
+
+
 Route::resource('tipo-averias', TipoAveriasController::class);
