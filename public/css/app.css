@@ -161,6 +161,8 @@ input[type="checkbox"]:checked {
 /* Aplica la animación a la segunda columna */
 #second-column {
   animation: fadeInSecondColumn 0.5s ease-out forwards;
+  animation-delay: 1.5s;
+  /* Retraso de 2.5 segundos */
 }
 
 
@@ -169,8 +171,8 @@ input[type="checkbox"]:checked {
 /* Tablas */
 
 .modul {
-  width: 60%;
-  margin-top: 10vh !important;  
+  width: 80%;
+  margin-top: 5vh !important;  
   margin: 0 auto;
   border-collapse: collapse;
   background-color: white;

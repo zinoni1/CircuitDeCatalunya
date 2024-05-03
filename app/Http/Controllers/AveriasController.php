@@ -33,6 +33,7 @@ class AveriasController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
+            'Incidencia' => 'required|string|max:255',
             'descripcion' => 'required|string|max:255',
             'data_inicio' => 'required|date',
             'data_fin' => 'required|date',
@@ -45,6 +46,7 @@ class AveriasController extends Controller
         ]);
 
         $averia = averias::create([
+            'Incidencia' => $request->Incidencia,
             'descripcion' => $request->descripcion,
             'data_inicio' => $request->data_inicio,
             'data_fin' => $request->data_fin,

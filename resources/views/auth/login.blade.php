@@ -55,15 +55,19 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Agrega la clase d-none a la segunda columna al inicio
-        document.getElementById("second-column").classList.add("d-none");
-        // Espera 7 segundos antes de mostrar la segunda columna
-        setTimeout(function() {
-            document.getElementById("second-column").classList.remove("d-none");
-        }, 4000);
-    });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Agrega la clase d-none a la segunda columna al inicio
+            document.getElementById("second-column").classList.add("d-none");
+            // Obtiene el elemento de la primera columna
+            var firstColumn = document.getElementById("first-column");
+            // Obtiene el tiempo de duración de la animación de la primera columna
+            var animationDuration = parseFloat(getComputedStyle(firstColumn).animationDuration) * 1000;
+            // Espera a que termine la animación de la primera columna antes de mostrar la segunda columna
+            setTimeout(function() {
+                document.getElementById("second-column").classList.remove("d-none");
+            }, animationDuration);
+        });
+    </script>
+</x-guest-layout>
