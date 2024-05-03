@@ -12,20 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('averias', function (Blueprint $table) {
+
             $table->id();
             $table->timestamps();
             $table->string('Incidencia');
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable();
             $table->date('data_inicio');
-            $table->date('data_fin');
+            $table->date('data_fin')->nullable();
             $table->enum('prioridad', ['baja', 'media', 'alta']);
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->foreignId('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('tecnico_asignado_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('asignador')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('zona_id')->references('id')->on('zonas')->onDelete('cascade');
             $table->foreignId('tipo_averias_id')->references('id')->on('tipo_averias')->onDelete('cascade');
-
         });
     }
 
