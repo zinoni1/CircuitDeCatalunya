@@ -14,7 +14,10 @@ class ZonasController extends Controller
     {
         //
     }
-
+    public function indexAndroid(){
+        $zonas = zonas::all();
+        return response()->json($zonas, 200);
+    }
     /**
      * Show the form for creating a new resource.
      */
