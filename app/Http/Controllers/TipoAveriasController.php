@@ -17,7 +17,7 @@ class TipoAveriasController extends Controller
     }
     public function indexAndroid(){
         $tipoAverias = tipo_averias::all();
-        return response()->json(['success' => true, 'tipoAverias' => $tipoAverias], 200);
+        return response()->json($tipoAverias, 200);
     }
 
     /**

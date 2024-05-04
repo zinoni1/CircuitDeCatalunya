@@ -14,6 +14,10 @@ class SectorsController extends Controller
     {
         //
     }
+    public function indexAndroid(){
+        $sectors = sector::all();
+        return response()->json($sectors, 200);
+    }
 
     /**
      * Show the form for creating a new resource.

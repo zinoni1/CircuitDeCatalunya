@@ -14,7 +14,10 @@ class CargosController extends Controller
     {
         //
     }
-
+    public function indexAndroid(){
+        $cargos = cargos::all();
+        return response()->json($cargos, 200);
+    }
     /**
      * Show the form for creating a new resource.
      */
