@@ -70,6 +70,28 @@ class AveriasController extends Controller
         }
     }
 
+    public function storeAndroid(Request $request)
+    {
+      try{
+        $averia = averias::create([
+            'Incidencia' => $request->Incidencia,
+            'descripcion' => $request->descripcion,
+            'data_inicio' => $request->data_inicio,
+            'data_fin' => $request->data_fin,
+            'prioridad' => $request->prioridad,
+            'creator_id' => $request->creator_id,
+            'tecnico_asignado_id' => $request->tecnico_asignado_id,
+            'asignador' => $request->asignador,
+            'zona_id' => $request->zona_id,
+            'tipo_averias_id' => $request->tipo_averias_id,
+        ]);
+        return response()->json(['success' => true, 'averia' => $averia], 200);
+      }
+        catch(\Exception $e){
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
     /**
      * Display the specified resource.
      */
