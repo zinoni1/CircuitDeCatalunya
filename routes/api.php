@@ -34,3 +34,4 @@ Route::get('averias-android', [AveriasController::class, 'indexAndroid']);
 Route::get('zonas-android', [ZonasController::class, 'indexAndroid']);
 Route::get('sector-android', [SectorsController::class, 'indexAndroid']);
 Route::get('cargos-android', [CargosController::class, 'indexAndroid']);
+Route::post('add-averia-android', [AveriasController::class, 'storeAndroid']);
