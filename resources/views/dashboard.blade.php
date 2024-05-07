@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
             <a href="{{ route('tipo-averias.index') }}" class="btn btn-primary">Ver Tipo de Averías</a>
             <a href="{{ route('averias.index') }}" class="btn btn-primary">Ver Incidencias</a>
-            <!-- <a href="" class="btn btn-primary">Ver Sectores</a> -->
+            <a href="{{ route('zonas.index')}}" class="btn btn-primary">Ver Zonas</a>
         </h2>
     </x-slot>
 

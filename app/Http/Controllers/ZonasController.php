@@ -12,7 +12,8 @@ class ZonasController extends Controller
      */
     public function index()
     {
-        //
+        $zonas = zonas::all();
+        return view('zonas.index', ['zonas' => $zonas]);
     }
     public function indexAndroid(){
         $zonas = zonas::all();
@@ -31,7 +32,20 @@ class ZonasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:zonas,nombre',
+        ]);
+
+        $zonas = zonas::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'zonas' => $zonas], 200);
+        } else {
+            return redirect()->route('zonas.index')->with('success', 'Zona creado exitosamente.');
+        }
     }
 
     /**
@@ -61,8 +75,14 @@ class ZonasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(zonas $zonas)
+    public function destroy($id)
     {
-        //
+        $zonas = zonas::find($id);
+        if ($zonas) {
+            $zonas->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 }

@@ -1,9 +1,11 @@
 <x-app-layout>
+    <input type="hidden" id="user_id" value="{{ Auth::id() }}">
 
-    <div class="container-fluid pt-2 h3">
+
+    <div class="modul-fluid container-fluid p-3">
         <div class="row">
-            <div class="col">
-                <h1 class="mr-auto">Incidencies</h1>
+            <div class="col align-self-center">
+                <h1>Incidencies</h1>
             </div>
             <div class="col text-right">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Incidencia</button>
@@ -35,11 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="data_inicio">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="data_inicio">
-                            </div>
-                            <div class="form-group">
-                                <label for="data_fin">Fecha de Fin</label>
-                                <input type="date" class="form-control" id="data_fin">
+                                <input type="date" class="form-control" id="data_inicio" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                             <div class="form-group">
                                 <label for="prioridad">Prioridad</label>
@@ -53,26 +51,29 @@
                                 <label for="imagen">Imagen</label>
                                 <input type="file" class="form-control-file" id="imagen">
                             </div>
-                            <!-- Add form elements for the remaining foreign keys -->
-                            <div class="form-group">
-                                <label for="creator_id">Creator ID</label>
-                                <input type="text" class="form-control" id="creator_id" placeholder="Creator ID">
-                            </div>
                             <div class="form-group">
                                 <label for="tecnico_asignado_id">Técnico Asignado ID</label>
-                                <input type="text" class="form-control" id="tecnico_asignado_id" placeholder="Técnico Asignado ID">
+                                <select class="form-control" id="tecnico_asignado_id" name="tecnico_asignado_id">
+                                    @foreach($usuarios as $usuario)
+                                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="asignador">Asignador</label>
-                                <input type="text" class="form-control" id="asignador" placeholder="Asignador">
+                                <label for="zona_id">Zona</label>
+                                <select type="text" class="form-control" id="zona_id" placeholder="Zona ID">
+                                    @foreach($Zonas as $zona)
+                                    <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="zona_id">Zona ID</label>
-                                <input type="text" class="form-control" id="zona_id" placeholder="Zona ID">
-                            </div>
-                            <div class="form-group">
-                                <label for="tipo_averias_id">Tipo Averias ID</label>
-                                <input type="text" class="form-control" id="tipo_averias_id" placeholder="Tipo Averias ID">
+                                <label for="tipo_averias_id">Tipo Averia</label>
+                                <select class="form-control" id="tipo_averias_id" name="tipo_averias_id">
+                                    @foreach($tipoAverias as $tipoAveria)
+                                    <option value="{{ $tipoAveria->id }}">{{ $tipoAveria->nombre }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -84,7 +85,7 @@
         </div>
     </div>
 
-    <div class="modul-lg mt-3">
+    <div class="modul-lg mt-0">
         <table class="table" id="miTabla">
             <thead>
                 <tr>
@@ -120,14 +121,12 @@
                 <tr id="row-{{ $averia->id }}">
                     <td>{{ $averia->id }}</td>
                     <td>{{ $averia->Incidencia }}</td>
-                    <td>{{ $averia->tipo_averias_id }}</td>
+                    <td>{{ optional($averia->tipo_averia)->nombre }}</td>
                     <td>{{ $averia->data_inicio }}</td>
-                    <td>{{ $averia->data_fin }}</td>
+                    <td>{{ $averia->data_fin ? $averia->data_fin : '' }}</td>
                     <td>{{ $averia->prioridad }}</td>
-                    <!-- Add table cells for the remaining foreign keys -->
-                    <td>{{ $averia->tecnico_asignado_id }}</td>
-                    <td>{{ $averia->zona_id }}</td>
-                    <!-- Botón de eliminar con icono de Tailwind CSS de Heroicons -->
+                    <td>{{ optional($averia->users)->nombre }}</td>
+                    <td>{{ optional($averia->zona)->nombre }}</td>
                     <td>
                         <button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="{{ $averia->id }}">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -153,7 +152,7 @@
                 var data_fin = $('#data_fin').val();
                 var prioridad = $('#prioridad').val();
                 var imagen = $('#imagen').val();
-                var creator_id = $('#creator_id').val();
+                var creator_id = $('#user_id').val();
                 var tecnico_asignado_id = $('#tecnico_asignado_id').val();
                 var asignador = $('#asignador').val();
                 var zona_id = $('#zona_id').val();
@@ -172,7 +171,6 @@
                         imagen: imagen,
                         creator_id: creator_id,
                         tecnico_asignado_id: tecnico_asignado_id,
-                        asignador: asignador,
                         zona_id: zona_id,
                         tipo_averias_id: tipo_averias_id
                     },
@@ -180,17 +178,13 @@
                         if (response.success) {
                             var newRow = '<tr id="row-' + response.averia.id + '">' +
                                 '<td>' + response.averia.id + '</td>' +
-                                '<td>' + response.averia.nombre + '</td>' +
-                                '<td>' + response.averia.descripcion + '</td>' +
+                                '<td>' + response.averia.Incidencia + '</td>' +
+                                '<td>' + response.averia.tipo_averias_id + '</td>' +
                                 '<td>' + response.averia.data_inicio + '</td>' +
                                 '<td>' + response.averia.data_fin + '</td>' +
                                 '<td>' + response.averia.prioridad + '</td>' +
-                                '<td>' + response.averia.imagen + '</td>' +
-                                '<td>' + response.averia.creator_id + '</td>' +
                                 '<td>' + response.averia.tecnico_asignado_id + '</td>' +
-                                '<td>' + response.averia.asignador + '</td>' +
                                 '<td>' + response.averia.zona_id + '</td>' +
-                                '<td>' + response.averia.tipo_averias_id + '</td>' +
                                 '<td>' +
                                 '<button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="' + response.averia.id + '">' +
                                 '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">' +
