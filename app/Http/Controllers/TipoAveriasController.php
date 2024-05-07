@@ -15,6 +15,10 @@ class TipoAveriasController extends Controller
         $tipoAverias = tipo_averias::all();
         return view('tipo_averias.index', ['tipoAverias' => $tipoAverias]);
     }
+    public function indexAndroid(){
+        $tipoAverias = tipo_averias::all();
+        return response()->json($tipoAverias, 200);
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\TipoAveriasController;
+use App\Http\Controllers\AveriasController;
+use App\Http\Controllers\ZonasController;
+use App\Http\Controllers\SectorsController;
+use App\Http\Controllers\CargosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +27,11 @@ Route::get('test', [ApiController::class, 'index']);
 Route::get('login', [ApiController::class, 'index2']);
 Route::get('verify/{email}/{password}', [ApiController::class, 'verifyCredentials']);
 
+Route::resource('tipo-averias', TipoAveriasController::class);
+Route::resource('averias', AveriasController::class);
+Route::get('tipo-averias-android', [TipoAveriasController::class, 'indexAndroid']);
+Route::get('averias-android', [AveriasController::class, 'indexAndroid']);
+Route::get('zonas-android', [ZonasController::class, 'indexAndroid']);
+Route::get('sector-android', [SectorsController::class, 'indexAndroid']);
+Route::get('cargos-android', [CargosController::class, 'indexAndroid']);
+Route::post('add-averia-android', [AveriasController::class, 'storeAndroid']);

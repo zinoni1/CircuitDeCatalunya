@@ -15,7 +15,10 @@ class ZonasController extends Controller
         $zonas = zonas::all();
         return view('zonas.index', ['zonas' => $zonas]);
     }
-
+    public function indexAndroid(){
+        $zonas = zonas::all();
+        return response()->json($zonas, 200);
+    }
     /**
      * Show the form for creating a new resource.
      */
