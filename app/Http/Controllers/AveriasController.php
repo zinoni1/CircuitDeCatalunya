@@ -56,6 +56,7 @@ class AveriasController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_fin' => $request->data_fin,
             'prioridad' => $request->prioridad,
+
             'creator_id' => $request->creator_id,
             'tecnico_asignado_id' => $request->tecnico_asignado_id,
             'asignador' => $request->asignador,
@@ -79,6 +80,7 @@ class AveriasController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_fin' => $request->data_fin,
             'prioridad' => $request->prioridad,
+            'imagen' => $request->imagen,
             'creator_id' => $request->creator_id,
             'tecnico_asignado_id' => $request->tecnico_asignado_id,
             'asignador' => $request->asignador,
