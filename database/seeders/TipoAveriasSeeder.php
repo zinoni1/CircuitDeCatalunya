@@ -12,7 +12,7 @@ class TipoAveriasSeeder extends Seeder
      */
     public function run(): void
     {
-        tipo_averias::create(['nombre' => 'correctiu']);
-        tipo_averias::create(['nombre' => 'preventiu']);
+        tipo_averias::create(['nombre' => 'Correctiu']);
+        tipo_averias::create(['nombre' => 'Preventiu']);
     }
 }

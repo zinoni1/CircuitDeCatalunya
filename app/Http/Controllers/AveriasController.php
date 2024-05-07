@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\averias;
 use App\Models\tipo_averias;
 use App\Models\User;
+use App\Models\zonas;
 use Illuminate\Http\Request;
 
 class AveriasController extends Controller
@@ -18,8 +19,9 @@ class AveriasController extends Controller
     {
         $usuarios = User::all();
         $tipoAverias = tipo_averias::all();
+        $Zonas = zonas::all();
         $averias = averias::with(['zona', 'tipo_averia'])->get();
-        return view('averias.index', ['averias' => $averias, 'tipoAverias' => $tipoAverias, 'usuarios' => $usuarios]);
+        return view('averias.index', ['averias' => $averias, 'tipoAverias' => $tipoAverias, 'usuarios' => $usuarios, 'Zonas' => $Zonas]);
     }
 
 

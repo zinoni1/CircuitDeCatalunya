@@ -172,7 +172,17 @@ input[type="checkbox"]:checked {
 
 .modul {
   width: 80%;
-  margin-top: 5vh !important;  
+  margin-top: 1vh !important;  
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.modul-fluid {
+  width: 98%;
+  margin-top: 3vh !important;  
   margin: 0 auto;
   border-collapse: collapse;
   background-color: white;
@@ -182,7 +192,7 @@ input[type="checkbox"]:checked {
 }
 .modul-lg {
   width: 98%;
-  margin-top: 10vh !important;  
+  margin-top: 1vh !important;  
   margin: 0 auto;
   border-collapse: collapse;
   background-color: white;
@@ -210,7 +220,13 @@ input[type="checkbox"]:checked {
 .modul tr:hover {
   background-color: #e2e8f0;
 }
+#table-body tr {
+  display: none;
+}
 
+#table-body tr:nth-child(-n+6) {
+  display: table-row;
+}
 /* Responsive */
 @media screen and (max-width: 600px) {
   .modul,
