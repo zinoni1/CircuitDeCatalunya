@@ -17,10 +17,15 @@ class AveriasController extends Controller
         return view('averias.index', compact('averias'));
     }
     public function indexAndroid()
-{
-    $averias = averias::all();
-    return response()->json($averias, 200);
-}
+    {
+        $averias = averias::all()->map(function ($averia) {
+            $averia['image_url'] = asset('storage/images/' . $averia['imagen']); // Genera la URL completa para la imagen
+            return $averia;
+        });
+
+        return response()->json($averias, 200);
+    }
+
 
     /**
      * Show the form for creating a new resource.
