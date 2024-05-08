@@ -24,10 +24,15 @@ class AveriasController extends Controller
         return view('averias.index', ['averias' => $averias, 'tipoAverias' => $tipoAverias, 'usuarios' => $usuarios, 'Zonas' => $Zonas]);
     }
     public function indexAndroid()
-{
-    $averias = averias::all();
-    return response()->json($averias, 200);
-}
+    {
+        $averias = averias::all()->map(function ($averia) {
+            $averia['image_url'] = asset('storage/images/' . $averia['imagen']); // Genera la URL completa para la imagen
+            return $averia;
+        });
+
+        return response()->json($averias, 200);
+    }
+
 
 
     /**
@@ -65,6 +70,7 @@ class AveriasController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_fin' => $request->data_fin,
             'prioridad' => $request->prioridad,
+
             'creator_id' => $request->creator_id,
             'tecnico_asignado_id' => $request->tecnico_asignado_id,
             'zona_id' => $request->zona_id,
@@ -87,6 +93,7 @@ class AveriasController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_fin' => $request->data_fin,
             'prioridad' => $request->prioridad,
+            'imagen' => $request->imagen,
             'creator_id' => $request->creator_id,
             'tecnico_asignado_id' => $request->tecnico_asignado_id,
             'asignador' => $request->asignador,

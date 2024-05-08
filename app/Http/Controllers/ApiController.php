@@ -6,6 +6,9 @@ use App\Models\api;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class ApiController extends Controller
 {
     /**
@@ -60,6 +63,22 @@ public function verifyCredentials($email, $password){
         //
     }
 
+    public function uploadImage(Request $request)
+{
+    $request->validate([
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $image = $request->file('image');
+    $imageName = $image->getClientOriginalName();
+
+    Storage::disk('public')->put('images/' . $imageName, File::get($image));
+
+    // Ruta relativa de la imagen
+    $imagePath = 'storage/images/' . $imageName;
+
+    return response()->json(['image_path' => $imagePath]);
+}
     /**
      * Store a newly created resource in storage.
      */
@@ -90,6 +109,24 @@ public function verifyCredentials($email, $password){
     public function update(Request $request, api $api)
     {
         //
+    }
+
+    public function createUser(Request $request)
+    {
+       //validar
+         $request->validate([
+          'name' => 'required',
+          'email' => 'required|email|unique:users',
+          'password' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'rol' => $request->rol,
+            'cargo_id' => $request->cargo_id
+        ]);
     }
 
     /**
