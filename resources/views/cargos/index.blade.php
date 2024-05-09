@@ -2,7 +2,7 @@
     <div class="modul container p-3">
         <div class="row w-100">
             <div class="col-auto d-flex align-items-center">
-                <h1>Zonas</h1>
+                <h1>Cargos</h1>
             </div>
             <div class="col text-right">
                 <form id="create-form" action="{{ route('cargos.store') }}" method="post" class="row">
