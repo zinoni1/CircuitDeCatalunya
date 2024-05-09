@@ -5,13 +5,13 @@
                 <h1>Zonas</h1>
             </div>
             <div class="col text-right">
-                <form id="create-form" action="{{ route('zonas.store') }}" method="post" class="row">
+                <form id="create-form" action="{{ route('cargos.store') }}" method="post" class="row">
                     @csrf
                     <div class="col">
                         <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Zona</button>
+                        <button type="submit" class="w-100 btn btn-primary">Crear Cargo</button>
                     </div>
                 </form>
             </div>
@@ -26,14 +26,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         // Pasar los datos de PHP a JavaScript
-        let zonas = @json($zonas);
+        let cargos = @json($cargos);
 
         // Convertir los datos al formato que necesita grid.js
-        let data = zonas.map(zona => [zona.id, zona.nombre]);
+        let data = cargos.map(cargo => [cargo.id, cargo.nombre]);
 
         let table = new gridjs.Grid({
             columns: ["ID", "Nombre", {
-                name: "acciones",
+                name: "Acciones",
                 width: '10vh',
                 formatter: (cell, row) => {
                     return gridjs.h('button', {
@@ -44,7 +44,7 @@
                             var id = event.currentTarget.getAttribute('data-id');
 
                             $.ajax({
-                                url: '/zonas/' + id,
+                                url: '/cargos/' + id,
                                 type: 'DELETE',
                                 data: {
                                     _token: "{{ csrf_token() }}",
@@ -117,8 +117,8 @@
 
         // Función para eliminar una fila
         function deleteRow(id) {
-            zonas = zonas.filter(zona => zona.id != id);
-            data = zonas.map(zona => [zona.id, zona.nombre]);
+            cargos = cargos.filter(cargo => cargo.id != id);
+            data = cargos.map(cargo => [cargo.id, cargo.nombre]);
             table.updateConfig({
                 data: data
             }).forceRender();
@@ -128,13 +128,13 @@
         $(document).ready(function() {
             // Obtener los datos iniciales de la tabla del servidor
             $.ajax({
-                url: '/zonas',
+                url: '/cargos',
                 type: 'GET',
                 success: function(response) {
                     // Comprobar si response.zonas es un array
-                    if (response && Array.isArray(response.zonas)) {
+                    if (response && Array.isArray(response.cargos)) {
                         // Actualizar la tabla con los datos recibidos
-                        const data = response.zonas.map(zona => [zona.id, zona.nombre]);
+                        const data = response.zonas.map(cargo => [cargos.id, cargos.nombre]);
                         table.updateConfig({
                             data
                         }).forceRender();

@@ -4,6 +4,7 @@ use App\Http\Controllers\ZonasController;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\TipoAveriasController;
 use  App\Http\Controllers\AveriasController;
+use App\Http\Controllers\CargosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('averias', AveriasController::class);
     Route::resource('zonas', ZonasController::class);
     Route::resource('tipo-averias', TipoAveriasController::class);
+    Route::resource('cargos', CargosController::class);
 });
 
 Route::fallback(function () {
