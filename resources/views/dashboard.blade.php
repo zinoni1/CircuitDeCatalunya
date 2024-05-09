@@ -5,6 +5,7 @@
             <a href="{{ route('tipo-averias.index') }}" class="btn btn-primary">Ver Tipo de Averías</a>
             <a href="{{ route('averias.index') }}" class="btn btn-primary">Ver Incidencias</a>
             <a href="{{ route('zonas.index')}}" class="btn btn-primary">Ver Zonas</a>
+            <a href="{{ route('cargos.index')}}" class="btn btn-primary">Ver Cargos</a>
         </h2>
     </x-slot>
 

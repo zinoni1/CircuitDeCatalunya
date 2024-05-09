@@ -171,18 +171,19 @@ input[type="checkbox"]:checked {
 /* Tablas */
 
 .modul {
-  width: 80%;
-  margin-top: 1vh !important;  
+  width: 98%;
+  margin-top: 1vh !important;
   margin: 0 auto;
   border-collapse: collapse;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.26);
   overflow: hidden;
 }
+
 .modul-fluid {
   width: 98%;
-  margin-top: 3vh !important;  
+  margin-top: 3vh !important;
   margin: 0 auto;
   border-collapse: collapse;
   background-color: white;
@@ -190,9 +191,10 @@ input[type="checkbox"]:checked {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
+
 .modul-lg {
   width: 98%;
-  margin-top: 1vh !important;  
+  margin-top: 1vh !important;
   margin: 0 auto;
   border-collapse: collapse;
   background-color: white;
@@ -220,6 +222,7 @@ input[type="checkbox"]:checked {
 .modul tr:hover {
   background-color: #e2e8f0;
 }
+
 #table-body tr {
   display: none;
 }
@@ -227,8 +230,10 @@ input[type="checkbox"]:checked {
 #table-body tr:nth-child(-n+6) {
   display: table-row;
 }
+
 /* Responsive */
 @media screen and (max-width: 600px) {
+
   .modul,
   .modul thead,
   .modul tbody,
@@ -267,9 +272,11 @@ input[type="checkbox"]:checked {
   .modul td:nth-of-type(1):before {
     content: "Columna 1";
   }
+
   .modul td:nth-of-type(2):before {
     content: "Columna 2";
   }
+
   /* ... y así sucesivamente, para cada columna en tu tabla */
 }
 
@@ -303,6 +310,7 @@ input[type="checkbox"]:checked {
 .table tr:hover {
   background-color: #e2e8f0;
 }
+
 .create-input {
   border: 0.5px solid #d8e2eb !important;
   border-radius: 5px;
@@ -313,4 +321,34 @@ input[type="checkbox"]:checked {
   border: 0.5px solid var(--primary-color) !important;
   border-bottom: 0.5px solid var(--primary-color) !important;
   transition: 0.5s;
+}
+
+.gridjs-pages {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 10px 0 !important;
+}
+
+.gridjs-pages button {
+  margin: 0 5px !important;
+  padding: 0.5rem 1rem !important;
+  background-color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out !important;
+  border-radius: 0.25rem !important;
+}
+
+.gridjs-pages button:hover {
+  background-color: var(--primary-color) !important;
+}
+
+.gridjs-pages button:disabled {
+  background-color: var(--grey-color) !important;
+  cursor: not-allowed !important;
+}
+
+.gridjs-pages .gridjs-currentPage {
+  background-color: var(--focusVisible-color) !important;
 }
