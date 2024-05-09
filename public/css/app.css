@@ -352,3 +352,7 @@ input[type="checkbox"]:checked {
 .gridjs-pages .gridjs-currentPage {
   background-color: var(--focusVisible-color) !important;
 }
+
+.w-5 {
+ margin-right: 10px;
+}
