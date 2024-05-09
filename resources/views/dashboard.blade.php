@@ -6,6 +6,8 @@
             <a href="{{ route('averias.index') }}" class="btn btn-primary">Ver Incidencias</a>
             <a href="{{ route('zonas.index')}}" class="btn btn-primary">Ver Zonas</a>
             <a href="{{ route('cargos.index')}}" class="btn btn-primary">Ver Cargos</a>
+            <a href="{{ route('sectors.index') }}" class="btn btn-primary">Ver Sectores</a>
+            <!-- <a href="" class="btn btn-primary">Ver Sectores</a> -->
         </h2>
     </x-slot>
 

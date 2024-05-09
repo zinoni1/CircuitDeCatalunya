@@ -13,8 +13,8 @@ class zonas extends Model
         'nombre'
     ];
 
-    public function sector()
+    public function sectors()
     {
-        return $this->belongsTo(sector::class, 'sector_id');
+        return $this->belongsTo(sectors::class, 'sector_id');
     }
 }
