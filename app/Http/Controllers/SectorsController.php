@@ -16,7 +16,7 @@ class SectorsController extends Controller
         return view('sectors.index', ['sectors' => $sectors]);
     }
     public function indexAndroid(){
-        $sectors = sector::all();
+        $sectors = sectors::all();
         return response()->json($sectors, 200);
     }
 
