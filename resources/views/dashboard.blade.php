@@ -1,21 +1,29 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-            <a href="{{ route('tipo-averias.index') }}" class="btn btn-primary">Ver Tipo de Averías</a>
-            <a href="{{ route('averias.index') }}" class="btn btn-primary">Ver Incidencias</a>
-            <a href="{{ route('zonas.index')}}" class="btn btn-primary">Ver Zonas</a>
-            <a href="{{ route('cargos.index')}}" class="btn btn-primary">Ver Cargos</a>
-            <a href="{{ route('sectors.index') }}" class="btn btn-primary">Ver Sectores</a>
-            <!-- <a href="" class="btn btn-primary">Ver Sectores</a> -->
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
+    
+<!--Navigation Links
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('tipo-averias.index') }}" :active="request()->routeIs('tipo-averias.index')">
+                        Ver Tipo de Averías
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('averias.index') }}" :active="request()->routeIs('averias.index')">
+                        Ver Incidencias
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('zonas.index')}}" :active="request()->routeIs('zonas.index')">
+                        Ver Zonas
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('cargos.index')}}" :active="request()->routeIs('cargos.index')">
+                        Ver Cargos
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('sectors.index') }}" :active="request()->routeIs('sectors.index')">
+                        Ver Sectores
+                    </x-nav-link>
+                </div>
             </div>
         </div>
     </div>
+</nav> -->
+    
 </x-app-layout>
