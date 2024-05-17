@@ -36,7 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('zonas', ZonasController::class);
     Route::resource('tipo-averias', TipoAveriasController::class);
     Route::resource('cargos', CargosController::class);
+    Route::put('averias/{averia}/data_fin', [AveriasController::class, 'updateDataFin'])->name('averias.updateDataFin');
 });
+
+
 
 Route::fallback(function () {
     return view('welcome');

@@ -30,4 +30,9 @@ class averias extends Model
     {
         return $this->belongsTo('App\Models\tipo_averias', 'tipo_averias_id');
     }
+
+    public function tecnico()
+    {
+        return $this->belongsTo('App\Models\User', 'tecnico_asignado_id');
+    }
 }

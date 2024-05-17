@@ -59,9 +59,20 @@ class CargosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, cargos $cargos)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+        ]);
+
+        $cargos = Cargos::find($id);
+        if (!$cargos) {
+            return response()->json(['error' => 'Cargo not found'], 404);
+        }
+
+        $cargos->update($request->all());
+
+        return response()->json(['success' => true], 200);
     }
 
     /**

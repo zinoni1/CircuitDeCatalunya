@@ -67,9 +67,20 @@ class ZonasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, zonas $zonas)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+        ]);
+
+        $cargos = Zonas::find($id);
+        if (!$cargos) {
+            return response()->json(['error' => 'Zona not found'], 404);
+        }
+
+        $cargos->update($request->all());
+
+        return response()->json(['success' => true], 200);
     }
 
     /**
