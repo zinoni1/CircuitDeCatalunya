@@ -54,3 +54,7 @@ Route::resource('tipo-averias', TipoAveriasController::class);
 
 Route::resource('sectors', SectorsController::class);
 
+Route::get('/dashboard', [AveriasController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [AveriasController::class, 'dashboard2'])->name('dashboard');
+
+
