@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\averias;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Averia;
 use App\Models\tipo_averias;
 use App\Models\zonas;
+use Illuminate\Support\Facades\DB;
+
 
 class AveriasController extends Controller
 {
@@ -106,6 +107,49 @@ class AveriasController extends Controller
         }
     }
 
+
+    public function dashboard()
+{
+    $averiasPorTipo = averias::select(DB::raw('count(*) as count, tipo_averias_id'))
+        ->groupBy('tipo_averias_id')
+        ->pluck('count', 'tipo_averias_id')->all();
+
+    $tipoAverias = tipo_averias::whereIn('id', array_keys($averiasPorTipo))->pluck('nombre', 'id')->all();
+
+    $labels = [];
+    $data = [];
+
+    foreach ($averiasPorTipo as $tipoId => $count) {
+        $labels[] = $tipoAverias[$tipoId];
+        $data[] = $count;
+    }
+
+    return view('dashboard', compact('labels', 'data'));
+}
+
+
+public function dashboard2()
+{
+    $averiasPorTipo = averias::select(DB::raw('count(*) as count, tipo_averias_id'))
+        ->groupBy('tipo_averias_id')
+        ->pluck('count', 'tipo_averias_id')->all();
+
+    $tipoAverias = tipo_averias::whereIn('id', array_keys($averiasPorTipo))->pluck('nombre', 'id')->all();
+
+    $labels = [];
+    $data = [];
+
+    foreach ($averiasPorTipo as $tipoId => $count) {
+        $labels[] = $tipoAverias[$tipoId];
+        $data[] = $count;
+    }
+
+    // Obtener las averías finalizadas y no finalizadas
+    $averiasFinalizadas = averias::whereNotNull('data_fin')->count();
+    $averiasNoFinalizadas = averias::whereNull('data_fin')->count();
+
+    return view('dashboard', compact('labels', 'data', 'averiasFinalizadas', 'averiasNoFinalizadas'));
+}
     /**
      * Display the specified resource.
      */
@@ -178,4 +222,5 @@ class AveriasController extends Controller
             return response()->json(['success' => false]);
         }
     }
+
 }
