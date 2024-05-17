@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -68,24 +68,16 @@
                         gridjs.h('button', {
                             className: 'edit-button',
                             'data-id': row.cells[0].data,
+                            'data-toggle': 'modal',
+                            'data-target': '#editModal',
                             onclick: (event) => {
                                 event.preventDefault();
                                 var id = event.currentTarget.getAttribute('data-id');
                                 var name = row.cells[1].data;
-                    
+
                                 // Establece el ID y el nombre del cargo en el modal
                                 document.getElementById('editNombre').value = name;
                                 document.getElementById('editId').value = id;
-                    
-                                // Abre el modal
-                                var modal = document.getElementById('editModal');
-                                modal.classList.add('show');
-                                modal.style.display = 'block';
-                                modal.setAttribute('aria-hidden', 'false');
-                                modal.setAttribute('aria-modal', 'true');
-                                var backdrop = document.createElement('div');
-                                backdrop.className = 'modal-backdrop show';
-                                document.body.appendChild(backdrop);
                             }
                         }, [
                             gridjs.h('svg', { // Nuevo icono de edición
@@ -210,18 +202,56 @@
             });
         });
 
+        $('#saveButton').click(function(event) {
+            event.preventDefault();
+
+            var id = $('#editId').val();
+            var nombre = $('#editNombre').val();
+
+            $.ajax({
+                url: '/cargos/' + id,
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    _method: 'PUT',
+                    nombre: nombre,
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        location.reload();
+
+                    } else {
+                        alert('Error al actualizar el registro');
+                    }
+                }
+            });
+        });
+
         onclick: (event) => {
             event.preventDefault();
             var id = event.currentTarget.getAttribute('data-id');
             var name = row.cells[1].data;
-        
+
             // Establece el ID y el nombre del cargo en el modal
             document.getElementById('editNombre').value = name;
             document.getElementById('editId').value = id;
-        
+
             // Muestra el modal
             var myModal = new bootstrap.Modal(document.getElementById('editModal'), {});
             myModal.show();
         }
+
+        $('#editModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var id = button.data('id'); // Extrae el ID del cargo del atributo data-id
+
+            // Establece el ID y el nombre del cargo en el modal
+            var name = document.getElementById('editNombre').value;
+            var id = document.getElementById('editId').value;
+
+            document.getElementById('editNombre').value = name;
+            document.getElementById('editId').value = id;
+        });
     </script>
 </x-app-layout>
