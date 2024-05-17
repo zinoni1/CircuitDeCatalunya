@@ -1,7 +1,5 @@
 <x-app-layout>
 
-
-
     <div class="modul-fluid container-fluid p-3">
         <div class="row">
             <div class="col align-self-center">
@@ -85,19 +83,6 @@
         </div>
     </div>
 
-    <div>
-        <label for="filter-data-fin">Mostrar solo registros con fecha en data_fin</label>
-        <input type="checkbox" id="filter-data-fin">
-    </div>
-    <div>
-        <label for="filter-data-inici-start">Mostrar registros con data_inici después de</label>
-        <input type="date" id="filter-data-inici-start">
-    </div>
-    <div>
-        <label for="filter-data-inici-end">y antes de</label>
-        <input type="date" id="filter-data-inici-end">
-    </div>
-    
     <div class="mx-3">
         <div id="my-table"></div>
     </div>
@@ -287,23 +272,5 @@
             }).forceRender();
         }
 
-        // Controlador de eventos para el formulario de creación
-        $(document).ready(function() {
-            // Obtener los datos iniciales de la tabla del servidor
-            $.ajax({
-                url: '/averias',
-                type: 'GET',
-                success: function(response) {
-                    // Comprobar si response.averias es un array
-                    if (response && Array.isArray(response.averias)) {
-                        // Actualizar la tabla con los datos recibidos
-                        const data = response.averias.map(averia => [averia.id, averia.Incidencia, averia.Tipo_averias_id, averia.prioridad, averia.data_inicio, averia.data_fin, averia.tecnico_asignado_id, averia.zona_id]);
-                        table.updateConfig({
-                            data
-                        }).forceRender();
-                    }
-                }
-            });
-        });
     </script>
 </x-app-layout>

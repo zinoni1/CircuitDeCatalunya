@@ -153,9 +153,18 @@ public function dashboard2()
     /**
      * Display the specified resource.
      */
-    public function show(averias $averias)
+    public function show($id)
     {
-        //
+        // Primero, utilizamos el modelo Averias para buscar en la base de datos la avería con el ID proporcionado.
+        $averia = Averias::find($id);
+
+        // Si no se encuentra ninguna avería con ese ID, redirigimos al usuario a la página de lista de averías con un mensaje de error.
+        if (!$averia) {
+            return redirect()->route('averias.index')->with('error', 'Avería no encontrada');
+        }
+
+        // Si se encuentra la avería, la pasamos a la vista 'averias.show'.
+        return view('averias.show', ['averia' => $averia]);
     }
 
     /**
