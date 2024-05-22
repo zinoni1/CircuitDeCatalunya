@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\TipoAveriasController;
 use  App\Http\Controllers\AveriasController;
 use App\Http\Controllers\CargosController;
+use App\Http\Controllers\AveriasAnonimasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +54,10 @@ Route::resource('averias', AveriasController::class);
 Route::resource('tipo-averias', TipoAveriasController::class);
 
 Route::resource('sectors', SectorsController::class);
+Route::resource('averiasAnonimas', AveriasAnonimasController::class);
 
 Route::get('/dashboard', [AveriasController::class, 'dashboard'])->name('dashboard');
 Route::get('/dashboard', [AveriasController::class, 'dashboard2'])->name('dashboard');
+
 
 
