@@ -50,7 +50,6 @@ class AveriasController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-
     {
         // Validar los datos del formulario
         $request->validate([
@@ -63,7 +62,11 @@ class AveriasController extends Controller
             'tecnico_asignado_id' => 'required',
             'zona_id' => 'required',
             'tipo_averias_id' => 'required',
+            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imageName = time().'.'.$request->imagen->extension();  
+        $request->imagen->move(public_path('images'), $imageName);
 
         $averia = averias::create([
             'Incidencia' => $request->Incidencia,
@@ -71,11 +74,11 @@ class AveriasController extends Controller
             'data_inicio' => $request->data_inicio,
             'data_fin' => $request->data_fin,
             'prioridad' => $request->prioridad,
-
             'creator_id' => $request->creator_id,
             'tecnico_asignado_id' => $request->tecnico_asignado_id,
             'zona_id' => $request->zona_id,
             'tipo_averias_id' => $request->tipo_averias_id,
+            'imagen' => $imageName,
         ]);
 
         if ($request->ajax()) {
@@ -163,8 +166,10 @@ public function dashboard2()
             return redirect()->route('averias.index')->with('error', 'Avería no encontrada');
         }
 
-        // Si se encuentra la avería, la pasamos a la vista 'averias.show'.
-        return view('averias.show', ['averia' => $averia]);
+        $usuarios = User::all();
+        $tipoAverias = tipo_averias::all();
+        $zonas = zonas::all();
+        return view('averias.show', ['averia' => $averia, 'usuarios' => $usuarios, 'tipoAverias' => $tipoAverias, 'Zonas' => $zonas]);
     }
 
     /**
@@ -178,23 +183,39 @@ public function dashboard2()
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, averias $averias)
+    public function update(Request $request, $id)
     {
-        $averias->Incidencia = $request->get('Incidencia');
-        $averias->Descripcion = $request->get('Descripcion');
-        $averias->Data_inicio = $request->get('Data_inicio');
-        $averias->Prioridad = $request->get('Prioridad');
-        $averias->Imagen = $request->get('Imagen');
-        $averias->Tecnico_asignado_id = $request->get('Tecnico_asignado_id');
-        $averias->Zona_id = $request->get('Zona_id');
-        $averias->Tipo_averias_id = $request->get('Tipo_averias_id');
+        $averia = Averias::find($id);
 
-        $averias->save();
+        $averia->Incidencia = $request->Incidencia;
+        $averia->descripcion = $request->descripcion;
+        $averia->data_inicio = $request->data_inicio;
+        $averia->prioridad = $request->prioridad;
+        $averia->tecnico_asignado_id = $request->tecnico_asignado_id;
+        $averia->zona_id = $request->zona_id;
+        $averia->tipo_averias_id = $request->tipo_averias_id;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Datos actualizados correctamente'
-        ], 200);
+        // Si data_fin es nulo, establecerlo como nulo en la base de datos
+        if ($request->data_fin == null) {
+            $averia->data_fin = null;
+        } else {
+            $averia->data_fin = $request->data_fin;
+        }
+
+        // Si se subió una imagen, guardarla
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
+            $ubicacion = public_path('/imagenes/averias');
+            $imagen->move($ubicacion, $nombreImagen);
+
+            // Guardar el nombre de la imagen en la base de datos
+            $averia->imagen = $nombreImagen;
+        }
+
+        $averia->save();
+
+        return redirect()->route('averias.show', $averia->id)->with('info', 'Averia actualizada con éxito');
     }
     /**
      * Update the 'data_fin' field of the specified resource in storage.

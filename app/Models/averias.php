@@ -35,4 +35,8 @@ class averias extends Model
     {
         return $this->belongsTo('App\Models\User', 'tecnico_asignado_id');
     }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
 }
