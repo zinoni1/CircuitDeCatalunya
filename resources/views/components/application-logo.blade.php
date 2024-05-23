@@ -1,1 +1,1 @@
-<img src="{{ asset("images/logo.png") }}" alt="Circuit de Catalunya" style="width: 40vh;">
+<img src="{{ asset("images/logo.png") }}" alt="Circuit de Catalunya" style="width: 30vh;">

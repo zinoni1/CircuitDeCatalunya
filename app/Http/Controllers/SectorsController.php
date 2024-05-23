@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sector;
+use App\Models\sectors;
 use Illuminate\Http\Request;
 
 class SectorsController extends Controller
@@ -12,15 +12,19 @@ class SectorsController extends Controller
      */
     public function index()
     {
-        //
+        $sectors = sectors::all();
+        return view('sectors.index', ['sectors' => $sectors]);
     }
     public function indexAndroid(){
-        $sectors = sector::all();
+        $sectors = sectors::all();
         return response()->json($sectors, 200);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -32,13 +36,26 @@ class SectorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'zona_id' => 'required|exists:zonas,id',
+        ]);
+
+        $sectors = sectors::create([
+            'nombre' => $request->nombre,
+            'zona_id' => $request->zona_id,
+        ]);
+
+        return response()->json(['success' => true, 'sectors' => $sectors], 200);
     }
 
     /**
-     * Display the specified resource.
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(sector $sectors)
+    public function show(sectors $sectors)
     {
         //
     }
@@ -46,7 +63,7 @@ class SectorsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(sector $sectors)
+    public function edit(sectors $sectors)
     {
         //
     }
@@ -54,7 +71,7 @@ class SectorsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, sector $sectors)
+    public function update(Request $request, sectors $sectors)
     {
         //
     }
@@ -62,8 +79,14 @@ class SectorsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(sector $sectors)
+    public function destroy($id)
     {
-        //
+        $sectors = sectors::find($id);
+        if ($sectors) {
+            $sectors->delete();
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false], 404);
+        }
     }
 }

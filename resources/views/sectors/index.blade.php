@@ -5,13 +5,13 @@
                 <h1>Sectores</h1>
             </div>
             <div class="col text-right">
-                <form id="create-form" action="{{ route('tipo-averias.store') }}" method="post" class="row">
+                <form id="create-form" action="{{ route('sectors.store') }}" method="post" class="row">
                     @csrf
                     <div class="col">
                         <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Tipus d'Averia</button>
+                        <button type="submit" class="w-100 btn btn-primary">Crear Sector</button>
                     </div>
                 </form>
             </div>
@@ -30,7 +30,7 @@
                         </button>
                     </th>
                     <th>
-                        Nom
+                        Nombre
                         <button class="btn btn-link" data-column-index="1" onclick="sortTable(1)">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -42,25 +42,27 @@
             </thead>
             <tbody id="table-body">
                 <!-- Aquí se mostrarán los datos -->
-                @foreach($tipoAverias as $tipoAveria)
-                <tr id="row-{{ $tipoAveria->id }}">
-                    <td>{{ $tipoAveria->id }}</td>
-                    <td>{{ $tipoAveria->nombre }}</td>
-
-                    <!-- Botón de eliminar con icono de Tailwind CSS de Heroicons -->
-                    <td>
-                        <button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="{{ $tipoAveria->id }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </button>
-                    </td>
-
-                </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
+    <div class="modul container p-3">
+        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+            <ul id="pagination-container" class="pagination">
+                <li class="page-item">
+                    <button id="previous-page" class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+                </li>
+                <!-- Aquí se insertarán los botones de paginación -->
+                <li class="page-item">
+                    <button id="next-page" class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -134,13 +136,43 @@
         }
 
         $(document).ready(function() {
+            // Función para cargar los datos de los sectores
+            function loadSectores() {
+                $.ajax({
+                    url: '{{ route("sectors.index") }}',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            $('#table-body').empty();
+                            response.sectores.forEach(function(sector) {
+                                var newRow = '<tr id="row-' + sector.id + '">' +
+                                    '<td>' + sector.id + '</td>' +
+                                    '<td>' + sector.nombre + '</td>' +
+                                    '<td>' +
+                                    '<button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="' + sector.id + '">' +
+                                    '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">' +
+                                    '<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
+                                    '</svg>' +
+                                    '</button>' +
+                                    '</td>' +
+                                    '</tr>';
+                                $('#table-body').append(newRow);
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Cargar los sectores al cargar la página
+            loadSectores();
+
             $('#create-form').on('submit', function(e) {
                 e.preventDefault();
 
                 var nombre = $('#nombre').val();
 
                 $.ajax({
-                    url: '/tipo-averias',
+                    url: '{{ route("sectors.store") }}',
                     type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -148,22 +180,10 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            var newRow = '<tr id="row-' + response.tipoAveria.id + '">' +
-                                '<td>' + response.tipoAveria.id + '</td>' +
-                                '<td>' + response.tipoAveria.nombre + '</td>' +
-                                '<td>' +
-                                '<button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="' + response.tipoAveria.id + '">' +
-                                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">' +
-                                '<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
-                                '</svg>' +
-                                '</button>' +
-                                '</td>' +
-                                '</tr>';
-
-                            $('#table-body').append(newRow);
+                            loadSectores();
                             $('#nombre').val('');
                         } else {
-                            alert('Error al crear el registro');
+                            alert('Error al crear el sector');
                         }
                     }
                 });
@@ -174,7 +194,7 @@
                 var id = $(this).data('id');
 
                 $.ajax({
-                    url: '/tipo-averias/' + id,
+                    url: '/sectors/' + id,
                     type: 'DELETE',
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -183,11 +203,70 @@
                         if (response.success) {
                             $('#row-' + id).remove();
                         } else {
-                            alert('Error al eliminar el registro');
+                            alert('Error al eliminar el sector');
                         }
                     }
                 });
             });
         });
+
+        let currentPage = 1;
+        const rowsPerPage = 5;
+
+        function updateTable() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            const rows = document.querySelectorAll('#table-body tr');
+            rows.forEach((row, index) => {
+                row.style.display = (start <= index && index < end) ? 'table-row' : 'none';
+            });
+
+            const totalRows = rows.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+            const paginationContainer = document.querySelector('#pagination-container');
+            // Elimina todos los elementos de paginación actuales, excepto los botones "Anterior" y "Siguiente"
+            paginationContainer.querySelectorAll('.page-item:not(:first-child):not(:last-child)').forEach(item => item.remove());
+
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.classList.add('page-item');
+
+                const a = document.createElement('a');
+                a.textContent = i;
+                a.classList.add('page-link');
+                a.href = '#';
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    updateTable();
+                });
+
+                li.appendChild(a);
+                // Inserta el nuevo elemento de paginación antes del botón "Siguiente"
+                paginationContainer.insertBefore(li, paginationContainer.lastElementChild);
+            }
+
+            document.querySelector('#previous-page').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateTable();
+                }
+            });
+
+            document.querySelector('#next-page').addEventListener('click', (e) => {
+                e.preventDefault();
+                const totalRows = document.querySelectorAll('#table-body tr').length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updateTable();
+                }
+            });
+        }
+
+        updateTable();
     </script>
 </x-app-layout>

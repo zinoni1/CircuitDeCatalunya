@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Cargos;
+use App\Models;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ZonasSeeder::class,
             TipoAveriasSeeder::class,
+            SectorsSeeder::class,
 
         ]);
         // \App\Models\User::factory()->create([

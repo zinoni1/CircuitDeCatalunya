@@ -1,6 +1,4 @@
 <x-app-layout>
-    <input type="hidden" id="user_id" value="{{ Auth::id() }}">
-
 
     <div class="modul-fluid container-fluid p-3">
         <div class="row">
@@ -25,56 +23,56 @@
                     </div>
                     <div class="modal-body">
                         <!-- Add form elements for creating a new averia -->
-                        <form id="form-id" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <label for="nombre">Incidencia</label>
-                                <input type="text" class="form-control" id="Incidencia" placeholder="Nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Descripción</label>
-                                <textarea class="form-control" id="descripcion" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="data_inicio">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="data_inicio" value="<?php echo date('Y-m-d'); ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="prioridad">Prioridad</label>
-                                <select class="form-control" id="prioridad">
-                                    <option value="alta">Alta</option>
-                                    <option value="media">Media</option>
-                                    <option value="baja">Baja</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="imagen">Imagen</label>
-                                <input type="file" class="form-control-file" id="imagen">
-                            </div>
-                            <div class="form-group">
-                                <label for="tecnico_asignado_id">Técnico Asignado ID</label>
-                                <select class="form-control" id="tecnico_asignado_id" name="tecnico_asignado_id">
-                                    @foreach($usuarios as $usuario)
-                                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="zona_id">Zona</label>
-                                <select type="text" class="form-control" id="zona_id" placeholder="Zona ID">
-                                    @foreach($Zonas as $zona)
-                                    <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="tipo_averias_id">Tipo Averia</label>
-                                <select class="form-control" id="tipo_averias_id" name="tipo_averias_id">
-                                    @foreach($tipoAverias as $tipoAveria)
-                                    <option value="{{ $tipoAveria->id }}">{{ $tipoAveria->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        @csrf
+                        <input type="hidden" id="id" name="creator_id" value="{{ Auth::id() }}">
+                        <div class="form-group">
+                            <label for="Incidencia">Incidencia</label>
+                            <input type="text" class="form-control" id="Incidencia" name="Incidencia" placeholder="Incidencia">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="data_inicio">Fecha de Inicio</label>
+                            <input type="date" class="form-control" id="data_inicio" name="data_inicio" value="<?php echo date('Y-m-d'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="prioridad">Prioridad</label>
+                            <select class="form-control" id="prioridad" name="prioridad">
+                                <option value="alta">Alta</option>
+                                <option value="media">Media</option>
+                                <option value="baja">Baja</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="imagen">Imagen</label>
+                            <input type="file" class="form-control-file" id="imagen" name="imagen">
+                        </div>
+                        <div class="form-group">
+                            <label for="tecnico_asignado_id">Técnico Asignado ID</label>
+                            <select class="form-control" id="tecnico_asignado_id" name="tecnico_asignado_id">
+                                @foreach($usuarios as $usuario)
+                                <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zona_id">Zona</label>
+                            <select class="form-control" id="zona_id" name="zona_id">
+                                @foreach($Zonas as $zona)
+                                <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_averias_id">Tipo Averia</label>
+                            <select class="form-control" id="tipo_averias_id" name="tipo_averias_id">
+                                @foreach($tipoAverias as $tipoAveria)
+                                <option value="{{ $tipoAveria->id }}">{{ $tipoAveria->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -85,192 +83,193 @@
         </div>
     </div>
 
-    <div class="modul-lg mt-0">
-        <table class="table" id="miTabla">
-            <thead>
-                <tr>
-                    <th>
-                        ID
-                        <button class="btn btn-link" data-column-index="0" onclick="sortTable(0)"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                    </th>
-                    <th>
-                        Nom
-                        <button class="btn btn-link" data-column-index="1" onclick="sortTable(1)">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                    </th>
-                    <th>Tipo Averias</th>
-                    <th>Fecha de Inicio</th>
-                    <th>Fecha de Fin</th>
-                    <th>Prioridad</th>
-                    <!-- Add table headers for the remaining foreign keys -->
-
-                    <th>Técnico Asignado</th>
-                    <th>Zona</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Aquí se mostrarán los datos -->
-                @foreach($averias as $averia)
-                <tr id="row-{{ $averia->id }}">
-                    <td>{{ $averia->id }}</td>
-                    <td>{{ $averia->Incidencia }}</td>
-                    <td>{{ optional($averia->tipo_averia)->nombre }}</td>
-                    <td>{{ $averia->data_inicio }}</td>
-                    <td>{{ $averia->data_fin ? $averia->data_fin : '' }}</td>
-                    <td>{{ $averia->prioridad }}</td>
-                    <td>{{ optional($averia->users)->nombre }}</td>
-                    <td>{{ optional($averia->zona)->nombre }}</td>
-                    <td>
-                        <button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="{{ $averia->id }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-                        </button>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <div class="mx-3">
+        <div id="my-table"></div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // Pasar los datos de PHP a JavaScript
+        let averias = @json($averias);
+        // Convertir los datos al formato que necesita grid.js
+        let data = averias.map(averia => [
+            averia.id,
+            averia.Incidencia,
+            averia.tipo_averia ? averia.tipo_averia.nombre : '', // Asegúrate de que 'nombre' es la propiedad correcta
+            averia.prioridad,
+            averia.data_inicio,
+            averia.data_fin === null ?
+            gridjs.html(`<select class="form-select" data-id="${averia.id}">
+    <option selected>Pendiente</option>
+    <option>Finalizado</option>
+    </select>`) :
+            averia.data_fin,
+            averia.tecnico ? averia.tecnico.name : '', // Cambiado 'nombre' a 'name'
+            averia.zona ? averia.zona.nombre : '', // Asegúrate de que 'nombre' es la propiedad correcta
+        ]);
+
+        let table = new gridjs.Grid({
+            columns: [
+                "ID",
+                "Incidencia",
+                "Tipo Averia",
+                "Prioridad",
+                "Inicio",
+                "Estado",
+                "Tecnico",
+                "Zona",
+                {
+                    name: "Acciones",
+                    width: '100vh',
+                    formatter: (cell, row) => {
+                        return gridjs.h('div', {}, [
+                            gridjs.h('button', {
+                                className: 'more-info',
+                                'data-id': row.cells[0].data,
+                                onclick: (event) => {
+                                    window.location.href = '/averias/' + row.cells[0].data;
+                                }
+                            }, [
+                                gridjs.h('svg', { // Nuevo icono de edición
+                                    xmlns: 'http://www.w3.org/2000/svg',
+                                    viewBox: '0 0 24 24',
+                                    fill: 'none',
+                                    stroke: 'currentColor',
+                                    strokeWidth: '1.5',
+                                    className: 'w-6 h-6'
+                                }, [
+                                    gridjs.h('path', {
+                                        strokeLinecap: 'round',
+                                        strokeLinejoin: 'round',
+                                        d: 'm11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z'
+                                    })
+                                ])
+                            ]),
+                            gridjs.h('button', {
+                                className: 'delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500',
+                                'data-id': row.cells[0].data,
+                                onclick: (event) => {
+                                    event.preventDefault();
+                                    var id = event.currentTarget.getAttribute('data-id');
+
+                                    $.ajax({
+                                        url: '/averias/' + id,
+                                        type: 'DELETE',
+                                        data: {
+                                            _token: "{{ csrf_token() }}",
+                                        },
+                                        success: function(response) {
+                                            if (response.success) {
+                                                deleteRow(id);
+                                            } else {
+                                                alert('Error al eliminar el registro');
+                                            }
+                                        }
+                                    });
+                                }
+                            }, gridjs.h('svg', {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                fill: "none",
+                                viewBox: "0 0 24 24",
+                                stroke: "currentColor",
+                                class: "w-6 h-6"
+                            }, gridjs.h('path', {
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                d: "m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            })))
+                        ]);
+                    }
+                }
+            ],
+            data: data,
+            sort: true,
+            search: true,
+            className: {
+                table: 'table'
+            },
+            pagination: {
+                limit: 5,
+                server: false // Desactivar la paginación del lado del servidor
+            },
+            language: {
+                'search': {
+                    'placeholder': 'Cerca...'
+                },
+                'pagination': {
+                    'previous': 'Anterior',
+                    'next': 'Següent',
+                    'showing': 'Mostrant',
+                    'results': () => 'Resultats'
+                }
+            }
+        });
+        // Agregar controlador de eventos después de que la tabla se haya renderizado
+        $(document).on('change', '.form-select', function() {
+            let select = $(this);
+            let id = select.data('id');
+            console.log(id);
+            let estado = select.val();
+
+            if (estado === 'Finalizado') {
+                $.ajax({
+                    url: '/averias/' + id + '/data_fin',
+                    type: 'PUT',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        data_fin: new Date().toISOString().slice(0, 10) // Fecha actual en formato YYYY-MM-DD
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Actualizar la celda para mostrar la fecha actual
+                            select.replaceWith(new Date().toISOString().slice(0, 10));
+                        } else {
+                            alert('Error al actualizar el registro');
+                        }
+                    }
+                });
+            }
+        });
+        // Renderizar la tabla
+        table.render(document.getElementById("my-table"));
+
+        // Función para eliminar una fila
+        function deleteRow(id) {
+            // Aquí puedes agregar el código para eliminar la fila de la base de datos
+            console.log('Eliminar fila con ID:', id);
+
+            // Forzar a la tabla a volver a renderizarse
+            table.forceRender();
+        }
         $(document).ready(function() {
-            $('#form-id').on('submit', function(e) {
+            $('#form-id').submit(function(e) {
                 e.preventDefault();
 
-                var Incidencia = $('#Incidencia').val();
-                var descripcion = $('#descripcion').val();
-                var data_inicio = $('#data_inicio').val();
-                var data_fin = $('#data_fin').val();
-                var prioridad = $('#prioridad').val();
-                var imagen = $('#imagen').val();
-                var creator_id = $('#user_id').val();
-                var tecnico_asignado_id = $('#tecnico_asignado_id').val();
-                var asignador = $('#asignador').val();
-                var zona_id = $('#zona_id').val();
-                var tipo_averias_id = $('#tipo_averias_id').val();
+                var formData = new FormData(this);
 
                 $.ajax({
                     url: '/averias',
                     type: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        Incidencia: Incidencia,
-                        descripcion: descripcion,
-                        data_inicio: data_inicio,
-                        data_fin: data_fin,
-                        prioridad: prioridad,
-                        imagen: imagen,
-                        creator_id: creator_id,
-                        tecnico_asignado_id: tecnico_asignado_id,
-                        zona_id: zona_id,
-                        tipo_averias_id: tipo_averias_id
-                    },
+                    data: formData,
                     success: function(response) {
-                        if (response.success) {
-                            var newRow = '<tr id="row-' + response.averia.id + '">' +
-                                '<td>' + response.averia.id + '</td>' +
-                                '<td>' + response.averia.Incidencia + '</td>' +
-                                '<td>' + response.averia.tipo_averias_id + '</td>' +
-                                '<td>' + response.averia.data_inicio + '</td>' +
-                                '<td>' + response.averia.data_fin + '</td>' +
-                                '<td>' + response.averia.prioridad + '</td>' +
-                                '<td>' + response.averia.tecnico_asignado_id + '</td>' +
-                                '<td>' + response.averia.zona_id + '</td>' +
-                                '<td>' +
-                                '<button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="' + response.averia.id + '">' +
-                                '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">' +
-                                '<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
-                                '</svg>' +
-                                '</button>' +
-                                '</td>' +
-                                '</tr>';
-
-                            $('#table-body').append(newRow);
-                            $('#nombre').val('');
-                            $('#descripcion').val('');
-                            $('#data_inicio').val('');
-                            $('#data_fin').val('');
-                            $('#prioridad').val('');
-                            $('#imagen').val('');
-                            $('#creator_id').val('');
-                            $('#tecnico_asignado_id').val('');
-                            $('#asignador').val('');
-                            $('#zona_id').val('');
-                            $('#tipo_averias_id').val('');
-
-                            // Cierra el modal
-                            $('#myModal').modal('hide');
-                        } else {
-                            alert('Error al crear el registro');
-                        }
-                    }
+                        location.reload();
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
                 });
             });
         });
-        // Controlador de eventos para los botones de eliminar
-        $('#table-body').on('click', '.delete-button', function() {
-            var id = $(this).data('id');
 
-            $.ajax({
-                url: '/averias/' + id,
-                type: 'DELETE',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                },
-                success: function(response) {
-                    if (response.success) {
-                        $('#row-' + id).remove();
-                    } else {
-                        alert('Error al eliminar el registro');
-                    }
-                }
-            })
-        })
-
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("miTable");
-            switching = true;
-            dir = "asc";
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    switchcount++;
-                } else {
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
+        // Función para eliminar una fila
+        function deleteRow(id) {
+            averias = averias.filter(averia => averia.id != id);
+            data = averias.map(averia => [averia.id, averia.Incidencia, averia.Tipo_averias_id, averia.prioridad, averia.data_inicio, averia.data_fin, averia.tecnico_asignado_id, averia.zona_id]);
+            table.updateConfig({
+                data: data
+            }).forceRender();
         }
     </script>
 </x-app-layout>

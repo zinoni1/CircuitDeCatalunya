@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sectores', function (Blueprint $table) {
+        Schema::create('averias_anonimas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nombre');
-            $table->unsignedBigInteger('zona_id'); // Clave externa a la tabla zonas
-
-            $table->foreign('zona_id')->references('id')->on('zonas'); // Establece la relación
+            $table->string('email');
+            $table->string('descripcion');
+            $table->string('imagen')->nullable();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sector');
+        Schema::dropIfExists('averias_anonimas');
     }
 };

@@ -5,16 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class zonas extends Model
+class averias_anonimas extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'nombre'
+        'email',
+        'descripcion',
+        'imagen',
     ];
-
-    public function sectors()
-    {
-        return $this->belongsTo(sectors::class, 'sector_id');
-    }
 }

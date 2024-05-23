@@ -61,6 +61,24 @@
             </tbody>
         </table>
     </div>
+    <div class="modul container p-3">
+        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+            <ul id="pagination-container" class="pagination">
+                <li class="page-item">
+                    <button id="previous-page" class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+                </li>
+                <!-- Aquí se insertarán los botones de paginación -->
+                <li class="page-item">
+                    <button id="next-page" class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -189,5 +207,64 @@
                 });
             });
         });
+
+        let currentPage = 1;
+        const rowsPerPage = 5;
+        
+        function updateTable() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+        
+            const rows = document.querySelectorAll('#table-body tr');
+            rows.forEach((row, index) => {
+                row.style.display = (start <= index && index < end) ? 'table-row' : 'none';
+            });
+        
+            const totalRows = rows.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage);
+        
+            const paginationContainer = document.querySelector('#pagination-container');
+            // Elimina todos los elementos de paginación actuales, excepto los botones "Anterior" y "Siguiente"
+            paginationContainer.querySelectorAll('.page-item:not(:first-child):not(:last-child)').forEach(item => item.remove());
+        
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.classList.add('page-item');
+        
+                const a = document.createElement('a');
+                a.textContent = i;
+                a.classList.add('page-link');
+                a.href = '#';
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    updateTable();
+                });
+        
+                li.appendChild(a);
+                // Inserta el nuevo elemento de paginación antes del botón "Siguiente"
+                paginationContainer.insertBefore(li, paginationContainer.lastElementChild);
+            }
+        
+            document.querySelector('#previous-page').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateTable();
+                }
+            });
+            
+            document.querySelector('#next-page').addEventListener('click', (e) => {
+                e.preventDefault();
+                const totalRows = document.querySelectorAll('#table-body tr').length;
+                const totalPages = Math.ceil(totalRows / rowsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updateTable();
+                }
+            });
+        }
+        
+        updateTable();
     </script>
 </x-app-layout>
