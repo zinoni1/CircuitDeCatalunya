@@ -59,5 +59,7 @@ Route::resource('averiasAnonimas', AveriasAnonimasController::class);
 Route::get('/dashboard', [AveriasController::class, 'dashboard'])->name('dashboard');
 Route::get('/dashboard', [AveriasController::class, 'dashboard2'])->name('dashboard');
 
+Route::get('/calendar/events', [AveriasController::class, 'calendarEvents'])->name('calendar.events');
+
 
 
