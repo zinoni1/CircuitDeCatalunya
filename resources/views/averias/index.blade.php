@@ -271,6 +271,5 @@
                 data: data
             }).forceRender();
         }
-
     </script>
 </x-app-layout>
