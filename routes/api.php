@@ -8,6 +8,7 @@ use App\Http\Controllers\AveriasController;
 use App\Http\Controllers\ZonasController;
 use App\Http\Controllers\SectorsController;
 use App\Http\Controllers\CargosController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::resource('tipo-averias', TipoAveriasController::class);
 Route::resource('averias', AveriasController::class);
 Route::get('tipo-averias-android', [TipoAveriasController::class, 'indexAndroid']);
 Route::get('averias-android', [AveriasController::class, 'indexAndroid']);
+Route::get('averias-android/{id}', [AveriasController::class, 'indexAndroidId']);
+Route::get('chats-android/{idUser}', [ChatController::class, 'indexAndroid']);
+Route::get('chats-android/{idGrupo}/{idUser}', [ChatController::class, 'indexAndroidId']);
 Route::get('zonas-android', [ZonasController::class, 'indexAndroid']);
 Route::get('sector-android', [SectorsController::class, 'indexAndroid']);
 Route::get('cargos-android', [CargosController::class, 'indexAndroid']);

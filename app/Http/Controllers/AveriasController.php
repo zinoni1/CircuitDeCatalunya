@@ -35,7 +35,15 @@ class AveriasController extends Controller
 
         return response()->json($averias, 200);
     }
+    public function indexAndroidId($id)
+    {
+        $averias = averias::where('id', $id)->get()->map(function ($averia) {
+            $averia['image_url'] = asset('storage/images/' . $averia['imagen']); // Genera la URL completa para la imagen
+            return $averia;
+        });
 
+        return response()->json($averias, 200);
+    }
     /**
      * Show the form for creating a new resource.
      */
