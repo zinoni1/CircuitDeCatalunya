@@ -232,4 +232,18 @@ public function dashboard2()
         }
     }
 
+    public function calendarEvents()
+{
+    $averias = averias::all()->map(function ($averia) {
+        return [
+            'title' => $averia->Incidencia,
+            'start' => $averia->data_inicio,
+            'end' => $averia->data_fin,
+            'url' => route('averias.show', $averia->id),
+        ];
+    });
+
+    return response()->json($averias);
+}
+
 }

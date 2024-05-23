@@ -16,6 +16,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "fullcalendar": "^6.1.13",
         "gridjs": "^6.2.0"
     }
 }
