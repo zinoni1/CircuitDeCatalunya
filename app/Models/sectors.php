@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class sectors extends Model
 {
     use HasFactory;
@@ -12,4 +13,9 @@ class sectors extends Model
         'nombre',
         'zona_id'
     ];
+
+    public function zona()
+    {
+        return $this->belongsTo(zonas::class);
+    }
 }
