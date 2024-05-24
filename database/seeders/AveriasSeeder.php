@@ -19,7 +19,7 @@ class AveriasSeeder extends Seeder
             'data_inicio' => now(),
             'data_fin' => now()->addDays(3),
             'prioridad' => 'alta',
-            'imagen' => 'ruta/a/imagen1.jpg',
+            'imagen' => '',
             'creator_id' => 1, // ID del creador de la avería
             'tecnico_asignado_id' => 2, // ID del técnico asignado
             'asignador' => 3, // ID del usuario que asignó la avería
@@ -33,7 +33,7 @@ class AveriasSeeder extends Seeder
             'data_inicio' => now(),
             'data_fin' => now()->addDays(2),
             'prioridad' => 'media',
-            'imagen' => 'ruta/a/imagen2.jpg',
+            'imagen' => '',
             'creator_id' => 2,
             'tecnico_asignado_id' => 3,
             'asignador' => 1,
