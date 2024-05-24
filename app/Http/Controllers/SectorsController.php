@@ -14,7 +14,8 @@ class SectorsController extends Controller
     public function index()
     {
         $sectors = sectors::with('zona')->get();
-        return view('sectors.index', ['sectors' => $sectors]);
+        $zonas = zonas::all();
+        return view('sectors.index', ['sectors' => $sectors, 'zonas' => $zonas]);
     }
     public function indexAndroid(){
         $sectors = sectors::all();  
@@ -29,11 +30,11 @@ class SectorsController extends Controller
      */
     public function create()
     {
-        //
+    
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.º
      */
     public function store(Request $request)
     {
@@ -47,7 +48,7 @@ class SectorsController extends Controller
             'zona_id' => $request->zona_id,
         ]);
 
-        return response()->json(['success' => true, 'sectors' => $sectors], 200);
+        return redirect()->route('sectors.index')->with('success', 'Zona creado exitosamente.');
     }
 
     /**

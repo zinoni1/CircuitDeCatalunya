@@ -5,18 +5,24 @@
                 <h1>sectors</h1>
             </div>
             <div class="col text-right">
-                <form id="create-form" action="{{ route('sectors.store') }}" method="post" class="row">
+                <form action="{{ route('sectors.store') }}" method="POST">
                     @csrf
-                    <div class="col">
-                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
-                    </div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre">
+
+                    <label for="zona_id">Zona:</label>
+                    <select id="zona_id" name="zona_id">
+                        @foreach ($zonas as $zona)
+                            <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                        @endforeach
+                    </select>
                     <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear sector</button>
+                        <button type="submit" class="w-100 btn btn-primary">Crear</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+    </div>  
 
     <div class="mx-5">
         <div id="my-table"></div>
@@ -168,7 +174,7 @@
         // Función para agregar una fila
         function addRow(id, nombre) {
             const data = table.config.data;
-            data.push([id, nombre, zona_id]);
+            data.push([id, nombre, sector.zona.nombre]);
             table.updateConfig({
                 data
             }).forceRender();
@@ -177,7 +183,7 @@
         // Función para eliminar una fila
         function deleteRow(id) {
             sectors = sectors.filter(sector => sector.id != id);
-            data = sectors.map(sector => [sector.id, sector.nombre, sector.zona_id]);
+            data = sectors.map(sector => [sector.id, sector.nombre, sector.zona.nombre]);
             table.updateConfig({
                 data: data
             }).forceRender();
@@ -193,7 +199,7 @@
                     // Comprobar si response.zonas es un array
                     if (response && Array.isArray(response.sectors)) {
                         // Actualizar la tabla con los datos recibidos
-                        const data = response.zonas.map(sector => [sectors.id, sectors.nombre, sectors.zona_id]);
+                        const data = response.zonas.map(sector => [sectors.id, sectors.nombre, sector.zona.nombre]);
                         table.updateConfig({
                             data
                         }).forceRender();
