@@ -242,7 +242,7 @@ public function dashboard2()
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id)    
     {
         $averia = averias::find($id);
         if ($averia) {
@@ -252,19 +252,22 @@ public function dashboard2()
             return response()->json(['success' => false]);
         }
     }
-
     public function calendarEvents()
-{
-    $averias = averias::all()->map(function ($averia) {
-        return [
-            'title' => $averia->Incidencia,
-            'start' => $averia->data_inicio,
-            'end' => $averia->data_fin,
-            'url' => route('averias.show', $averia->id),
-        ];
-    });
+    {
+        $averias = averias::all()->map(function ($averia) {
+            // Asignar un color según si la avería está finalizada o no
+            $color = $averia->data_fin !== null ? '#28a745' : '#dc3545';  // verde si está finalizada, rojo si está pendiente
 
-    return response()->json($averias);
-}
+            return [
+                'title' => $averia->Incidencia,
+                'start' => $averia->data_inicio,
+                'end' => $averia->data_fin,
+                'url' => route('averias.show', $averia->id),
+                'color' => $color,  // Agregar esta línea
+            ];
+        });
+
+        return response()->json($averias);
+    }
 
 }
