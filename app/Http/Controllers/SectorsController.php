@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\sectors;
+use App\Models\zonas;
 use Illuminate\Http\Request;
 
 class SectorsController extends Controller
@@ -12,11 +13,11 @@ class SectorsController extends Controller
      */
     public function index()
     {
-        $sectors = sectors::all();
+        $sectors = sectors::with('zona')->get();
         return view('sectors.index', ['sectors' => $sectors]);
     }
     public function indexAndroid(){
-        $sectors = sectors::all();
+        $sectors = sectors::all();  
         return response()->json($sectors, 200);
     }
 

@@ -2,7 +2,7 @@
     <div class="modul container p-3">
         <div class="row w-100">
             <div class="col-auto d-flex align-items-center">
-                <h1>Sectores</h1>
+                <h1>sectors</h1>
             </div>
             <div class="col text-right">
                 <form id="create-form" action="{{ route('sectors.store') }}" method="post" class="row">
@@ -11,262 +11,247 @@
                         <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Sector</button>
+                        <button type="submit" class="w-100 btn btn-primary">Crear sector</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="modul">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        ID
-                        <button class="btn btn-link" data-column-index="0" onclick="sortTable(0)"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                    </th>
-                    <th>
-                        Nombre
-                        <button class="btn btn-link" data-column-index="1" onclick="sortTable(1)">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 sort-icon">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Aquí se mostrarán los datos -->
-            </tbody>
-        </table>
+    <div class="mx-5">
+        <div id="my-table"></div>
     </div>
-    <div class="modul container p-3">
-        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-            <ul id="pagination-container" class="pagination">
-                <li class="page-item">
-                    <button id="previous-page" class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Sector</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                </li>
-                <!-- Aquí se insertarán los botones de paginación -->
-                <li class="page-item">
-                    <button id="next-page" class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </button>
-                </li>
-            </ul>
-        </nav>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="editNombre">Nombre del Sector</label>
+                            <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                        </div>
+                        <input type="hidden" id="editId" name="id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function sortTable(columnIndex) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.querySelector('.table');
-            switching = true;
-            // Establece la dirección inicial como ascendente
-            dir = "asc";
-            /* Haz un bucle que continuará hasta que no se realicen cambios */
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                /* Bucle a través de todas las filas, excepto la primera (encabezados de columna) */
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    /* Obtén el contenido de las celdas que deseas comparar */
-                    x = rows[i].getElementsByTagName("td")[columnIndex];
-                    y = rows[i + 1].getElementsByTagName("td")[columnIndex];
-                    /* Comprueba si las dos filas deben cambiarse de posición */
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
+        // Pasar los datos de PHP a JavaScript
+        let sectors = @json($sectors);
+
+        // Convertir los datos al formato que necesita grid.js
+        let data = sectors.map(sector => [sector.id, sector.nombre, sector.zona.nombre]);
+
+        let table = new gridjs.Grid({
+            columns: ["ID", "Nombre","Zona ID", {
+                name: "Acciones",
+                width: '60vh',
+                formatter: (cell, row) => {
+                    return gridjs.h('div', {}, [
+                        gridjs.h('button', {
+                            className: 'edit-button',
+                            'data-id': row.cells[0].data,
+                            'data-toggle': 'modal',
+                            'data-target': '#editModal',
+                            onclick: (event) => {
+                                event.preventDefault();
+                                var id = event.currentTarget.getAttribute('data-id');
+                                var name = row.cells[1].data;
+
+                                // Establece el ID y el nombre del sector en el modal
+                                document.getElementById('editNombre').value = name;
+                                document.getElementById('editId').value = id;
+                            }
+                        }, [
+                            gridjs.h('svg', { // Nuevo icono de edición
+                                xmlns: 'http://www.w3.org/2000/svg',
+                                viewBox: '0 0 20 20',
+                                fill: 'currentColor',
+                                className: 'w-5 h-5'
+                            }, [
+                                gridjs.h('path', {
+                                    d: 'm5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z'
+                                }),
+                                gridjs.h('path', {
+                                    d: 'M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z'
+                                })
+                            ])
+                        ]),
+                        gridjs.h('button', {
+                            className: 'delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500',
+                            'data-id': row.cells[0].data,
+                            onclick: (event) => {
+                                event.preventDefault();
+                                var id = event.currentTarget.getAttribute('data-id');
+
+                                $.ajax({
+                                    url: '/sectors/' + id,
+                                    type: 'DELETE',
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                    },
+                                    success: function(response) {
+                                        if (response.success) {
+                                            deleteRow(id);
+                                        } else {
+                                            alert('Error al eliminar el registro');
+                                        }
+                                    }
+                                });
+                            }
+                        }, gridjs.h('svg', {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            fill: "none",
+                            viewBox: "0 0 24 24",
+                            stroke: "currentColor",
+                            class: "w-6 h-6"
+                        }, gridjs.h('path', {
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            d: "m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        })))
+                    ]);
                 }
-                if (shouldSwitch) {
-                    /* Si se encuentra un cambio, haz el cambio y marca que se ha hecho */
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    // Aumenta el contador en 1
-                    switchcount++;
-                } else {
-                    /* Si no se realizaron cambios y la dirección es 'asc', establece la dirección a 'desc' y ejecuta el bucle while nuevamente */
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
+            }],
+            data: data,
+            sort: true,
+            search: true,
+            className: {
+                table: 'table'
+            },
+            pagination: {
+                limit: 5,
+                server: false // Desactivar la paginación del lado del servidor
+            },
+            language: {
+                'search': {
+                    'placeholder': 'Cerca...'
+                },
+                'pagination': {
+                    'previous': 'Anterior',
+                    'next': 'Següent',
+                    'showing': 'Mostrant',
+                    'results': () => 'Resultats'
                 }
             }
-            // Remover clases de los botones de filtro
-            var buttons = document.querySelectorAll('.btn-link');
-            buttons.forEach(function(button) {
-                button.classList.remove('active');
-            });
-            // Agregar clase activa al botón de filtro seleccionado
-            var selectedButton = document.querySelector('.btn-link[data-column-index="' + columnIndex + '"]');
-            selectedButton.classList.add('active');
+        });
 
-            // Obtén todos los íconos de flecha
-            var icons = document.querySelectorAll('.sort-icon');
-            // Restablece todos los íconos a la flecha bidireccional
-            icons.forEach(function(icon) {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
-            });
+        // Renderizar la tabla
+        table.render(document.getElementById("my-table"));
 
-            // Obtén el ícono de flecha para la columna actual
-            var icon = selectedButton.querySelector('.sort-icon');
+        // Función para eliminar una fila
+        function deleteRow(id) {
+            // Aquí puedes agregar el código para eliminar la fila de la base de datos
+            console.log('Eliminar fila con ID:', id);
 
-            if (dir == 'asc') {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>'; // flecha hacia arriba
-            } else {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>'; // flecha hacia abajo
-            }
+            // Forzar a la tabla a volver a renderizarse
+            table.forceRender();
         }
 
+        // Función para agregar una fila
+        function addRow(id, nombre) {
+            const data = table.config.data;
+            data.push([id, nombre, zona_id]);
+            table.updateConfig({
+                data
+            }).forceRender();
+        }
+
+        // Función para eliminar una fila
+        function deleteRow(id) {
+            sectors = sectors.filter(sector => sector.id != id);
+            data = sectors.map(sector => [sector.id, sector.nombre, sector.zona_id]);
+            table.updateConfig({
+                data: data
+            }).forceRender();
+        }
+
+        // Controlador de eventos para el formulario de creación
         $(document).ready(function() {
-            // Función para cargar los datos de los sectores
-            function loadSectores() {
-                $.ajax({
-                    url: '{{ route("sectors.index") }}',
-                    type: 'GET',
-                    success: function(response) {
-                        if (response.success) {
-                            $('#table-body').empty();
-                            response.sectores.forEach(function(sector) {
-                                var newRow = '<tr id="row-' + sector.id + '">' +
-                                    '<td>' + sector.id + '</td>' +
-                                    '<td>' + sector.nombre + '</td>' +
-                                    '<td>' +
-                                    '<button type="button" class="delete-button text-red-600 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="' + sector.id + '">' +
-                                    '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">' +
-                                    '<path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
-                                    '</svg>' +
-                                    '</button>' +
-                                    '</td>' +
-                                    '</tr>';
-                                $('#table-body').append(newRow);
-                            });
-                        }
+            // Obtener los datos iniciales de la tabla del servidor
+            $.ajax({
+                url: '/sectors',
+                type: 'GET',
+                success: function(response) {
+                    // Comprobar si response.zonas es un array
+                    if (response && Array.isArray(response.sectors)) {
+                        // Actualizar la tabla con los datos recibidos
+                        const data = response.zonas.map(sector => [sectors.id, sectors.nombre, sectors.zona_id]);
+                        table.updateConfig({
+                            data
+                        }).forceRender();
                     }
-                });
-            }
-
-            // Cargar los sectores al cargar la página
-            loadSectores();
-
-            $('#create-form').on('submit', function(e) {
-                e.preventDefault();
-
-                var nombre = $('#nombre').val();
-
-                $.ajax({
-                    url: '{{ route("sectors.store") }}',
-                    type: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        nombre: nombre
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            loadSectores();
-                            $('#nombre').val('');
-                        } else {
-                            alert('Error al crear el sector');
-                        }
-                    }
-                });
-            });
-
-            // Controlador de eventos para los botones de eliminar
-            $('#table-body').on('click', '.delete-button', function() {
-                var id = $(this).data('id');
-
-                $.ajax({
-                    url: '/sectors/' + id,
-                    type: 'DELETE',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $('#row-' + id).remove();
-                        } else {
-                            alert('Error al eliminar el sector');
-                        }
-                    }
-                });
+                }
             });
         });
 
-        let currentPage = 1;
-        const rowsPerPage = 5;
+        $('#saveButton').click(function(event) {
+            event.preventDefault();
 
-        function updateTable() {
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
+            var id = $('#editId').val();
+            var nombre = $('#editNombre').val();
 
-            const rows = document.querySelectorAll('#table-body tr');
-            rows.forEach((row, index) => {
-                row.style.display = (start <= index && index < end) ? 'table-row' : 'none';
-            });
+            $.ajax({
+                url: '/sectors/' + id,
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    _method: 'PUT',
+                    nombre: nombre,
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        location.reload();
 
-            const totalRows = rows.length;
-            const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-            const paginationContainer = document.querySelector('#pagination-container');
-            // Elimina todos los elementos de paginación actuales, excepto los botones "Anterior" y "Siguiente"
-            paginationContainer.querySelectorAll('.page-item:not(:first-child):not(:last-child)').forEach(item => item.remove());
-
-            for (let i = 1; i <= totalPages; i++) {
-                const li = document.createElement('li');
-                li.classList.add('page-item');
-
-                const a = document.createElement('a');
-                a.textContent = i;
-                a.classList.add('page-link');
-                a.href = '#';
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    currentPage = i;
-                    updateTable();
-                });
-
-                li.appendChild(a);
-                // Inserta el nuevo elemento de paginación antes del botón "Siguiente"
-                paginationContainer.insertBefore(li, paginationContainer.lastElementChild);
-            }
-
-            document.querySelector('#previous-page').addEventListener('click', (e) => {
-                e.preventDefault();
-                if (currentPage > 1) {
-                    currentPage--;
-                    updateTable();
+                    } else {
+                        alert('Error al actualizar el registro');
+                    }
                 }
             });
+        });
 
-            document.querySelector('#next-page').addEventListener('click', (e) => {
-                e.preventDefault();
-                const totalRows = document.querySelectorAll('#table-body tr').length;
-                const totalPages = Math.ceil(totalRows / rowsPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    updateTable();
-                }
-            });
+        onclick: (event) => {
+            event.preventDefault();
+            var id = event.currentTarget.getAttribute('data-id');
+            var name = row.cells[1].data;
+
+            // Establece el ID y el nombre del sector en el modal
+            document.getElementById('editNombre').value = name;
+            document.getElementById('editId').value = id;
+
+            // Muestra el modal
+            var myModal = new bootstrap.Modal(document.getElementById('editModal'), {});
+            myModal.show();
         }
 
-        updateTable();
+        $('#editModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var id = button.data('id'); // Extrae el ID del sector del atributo data-id
+
+            // Establece el ID y el nombre del sector en el modal
+            var name = document.getElementById('editNombre').value;
+            var id = document.getElementById('editId').value;
+
+            document.getElementById('editNombre').value = name;
+            document.getElementById('editId').value = id;
+        });
     </script>
 </x-app-layout>
