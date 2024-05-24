@@ -70,11 +70,14 @@ class AveriasController extends Controller
             'tecnico_asignado_id' => 'required',
             'zona_id' => 'required',
             'tipo_averias_id' => 'required',
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imageName = time().'.'.$request->imagen->extension();  
-        $request->imagen->move(public_path('images'), $imageName);
+        $imageName = null;
+        if ($request->hasFile('imagen')) {
+            $imageName = time().'.'.$request->imagen->extension();  
+            $request->imagen->move(public_path('images'), $imageName);
+        }
 
         $averia = averias::create([
             'Incidencia' => $request->Incidencia,

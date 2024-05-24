@@ -14,12 +14,12 @@ class ZonasSeeder extends Seeder
      */
     public function run()
     {
-        zonas::create(['nombre' => 'pista']);
-        zonas::create(['nombre' => 'organitzacio pado']);
-        zonas::create(['nombre' => 'public nord']);
-        zonas::create(['nombre' => 'public sud']);
-        zonas::create(['nombre' => 'public este']);
-        zonas::create(['nombre' => 'public oeste']);
-        zonas::create(['nombre' => 'aparcament']);
+        zonas::create(['nombre' => 'Pista']);
+        zonas::create(['nombre' => 'Organitzacio Padock']);
+        zonas::create(['nombre' => 'Public Nord']);
+        zonas::create(['nombre' => 'Public Sud']);
+        zonas::create(['nombre' => 'Public Este']);
+        zonas::create(['nombre' => 'Public Oeste']);
+        zonas::create(['nombre' => 'Aparcament']);
     }
 }
