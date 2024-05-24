@@ -7,18 +7,18 @@
             <div class="col text-right">
                 <form action="{{ route('sectors.store') }}" method="POST">
                     @csrf
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre">
-
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
                     <label for="zona_id">Zona:</label>
                     <select id="zona_id" name="zona_id">
                         @foreach ($zonas as $zona)
                             <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
                         @endforeach
                     </select>
+                    <label for="">
                     <div class="col-auto d-flex align-items-center">
                         <button type="submit" class="w-100 btn btn-primary">Crear</button>
                     </div>
+                </label>
                 </form>
             </div>
         </div>
