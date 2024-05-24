@@ -214,7 +214,7 @@ public function dashboard2()
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
             $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
-            $ubicacion = public_path('/imagenes/averias');
+            $ubicacion = public_path('/images');
             $imagen->move($ubicacion, $nombreImagen);
 
             // Guardar el nombre de la imagen en la base de datos
