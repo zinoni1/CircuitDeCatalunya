@@ -32,6 +32,9 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('averiasAnonimas', AveriasAnonimasController::class);
+
 Route::middleware('auth')->group(function () {
     Route::resource('averias', AveriasController::class);
     Route::resource('zonas', ZonasController::class);
@@ -39,7 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('cargos', CargosController::class);
     Route::resource('tipo-averias', TipoAveriasController::class);
     Route::resource('sectors', SectorsController::class);
-    Route::resource('averiasAnonimas', AveriasAnonimasController::class);
     Route::resource('averias', AveriasController::class);
     Route::get('/dashboard', [AveriasController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [AveriasController::class, 'dashboard2'])->name('dashboard');
