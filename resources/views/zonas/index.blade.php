@@ -62,7 +62,7 @@
         let table = new gridjs.Grid({
             columns: ["ID", "Nombre", {
                 name: "acciones",
-                width: '10vh',
+                width: '100vh',
                 formatter: (cell, row) => {
                     return gridjs.h('div', {}, [
                         gridjs.h('button', {

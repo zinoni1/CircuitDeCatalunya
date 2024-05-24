@@ -1,12 +1,20 @@
 <x-guest-layout>
     <div class="container-fluid h-100">
         <div class="row h-100">
-            <div id="first-column" class="col-md-12 h-100 bg-login d-flex align-items-center justify-content-center position-relative" style="background-image: url('{{ asset("images/login-bg.jpeg") }}');">
+            <div class="col-md-7 h-100 bg-login d-flex align-items-center justify-content-center position-relative" style="background-image: url('{{ asset("images/login-bg.jpeg") }}');">
                 <div class="overlay"></div>
                 <img src="{{ asset("images/login-logo.png") }}" alt="Circuit de Catalunya" size="10px" class="img-fluid logo_bg">
+
+                <a href="{{ route('averiasAnonimas.index') }}">
+                    <div class="modul" style="width:25px !important; position:absolute; top:0; left:10; border-radius:5px; background-color:var(--primary-color);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                        </svg>
+                    </div>
+                </a>
             </div>
 
-            <div id="second-column" class="col-md-5 h-100 d-flex flex-column align-items-center justify-content-center d-none">
+            <div class="col-md-5 h-100 d-flex flex-column align-items-center justify-content-center">
                 <h1 class="mb-4">Iniciar Sessió</h1>
 
                 <div class="w-100">
@@ -55,19 +63,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Agrega la clase d-none a la segunda columna al inicio
-            document.getElementById("second-column").classList.add("d-none");
-            // Obtiene el elemento de la primera columna
-            var firstColumn = document.getElementById("first-column");
-            // Obtiene el tiempo de duración de la animación de la primera columna
-            var animationDuration = parseFloat(getComputedStyle(firstColumn).animationDuration) * 1000;
-            // Espera a que termine la animación de la primera columna antes de mostrar la segunda columna
-            setTimeout(function() {
-                document.getElementById("second-column").classList.remove("d-none");
-            }, animationDuration);
-        });
-    </script>
 </x-guest-layout>

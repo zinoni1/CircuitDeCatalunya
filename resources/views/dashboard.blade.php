@@ -16,42 +16,8 @@
             <canvas id="myChart2"></canvas>
         </div>
     </div>
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .modul {
-            flex: 1;
-            margin: 10px;
-            max-width: 45%;
-            /* Limita el ancho para evitar que las gráficas se estiren demasiado */
-        }
-
-        canvas {
-            width: 100%;
-            height: auto;
-        }
-
-        .calendar-container {
-            width: 100%;
-            /* Ajusta el ancho del calendario al 100% */
-            margin-top: 20px;
-            /* Añade un margen en la parte superior para separarlo de los gráficos */
-        }
-
-        #calendar {
-            width: 100%;
-            height: auto;
-            position: center;
-        }
-    </style>
-
-    <!-- Tu código de JavaScript aquí -->
 
     <link href="https://unpkg.com/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-
     <script src="https://unpkg.com/fullcalendar@5.10.1/main.min.js"></script>
 
     <script>
@@ -101,4 +67,38 @@
             calendar.render();
         });
     </script>
+
+    
+
+<style>
+        .container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modul {
+            flex: 1;
+            margin: 10px;
+            max-width: 45%;
+            /* Limita el ancho para evitar que las gráficas se estiren demasiado */
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        .calendar-container {
+            width: 100%;
+            /* Ajusta el ancho del calendario al 100% */
+            margin-top: 20px;
+            /* Añade un margen en la parte superior para separarlo de los gráficos */
+        }
+
+        #calendar {
+            width: 100%;
+            height: auto;
+            position: center;
+        }
+    </style>
 </x-app-layout>
