@@ -5,24 +5,10 @@
                 <h1>sectors</h1>
             </div>
             <div class="col text-right">
-                <form action="{{ route('sectors.store') }}" method="POST">
-                    @csrf
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
-                    <label for="zona_id">Zona:</label>
-                    <select id="zona_id" name="zona_id">
-                        @foreach ($zonas as $zona)
-                            <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
-                        @endforeach
-                    </select>
-                    <label for="">
-                    <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear</button>
-                    </div>
-                </label>
-                </form>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Sector</button>
             </div>
         </div>
-    </div>  
+    </div>
 
     <div class="mx-5">
         <div id="my-table"></div>
@@ -55,6 +41,27 @@
         </div>
     </div>
 
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ route('sectors.store') }}" method="POST">
+                    @csrf
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+                    <label for="zona_id">Zona:</label>
+                    <select id="zona_id" name="zona_id">
+                        @foreach ($zonas as $zona)
+                        <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                        @endforeach
+                    </select>
+                    <label for="">
+                        <div class="col-auto d-flex align-items-center">
+                            <button type="submit" class="w-100 btn btn-primary">Crear</button>
+                        </div>
+                    </label>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -66,7 +73,7 @@
         let data = sectors.map(sector => [sector.id, sector.nombre, sector.zona.nombre]);
 
         let table = new gridjs.Grid({
-            columns: ["ID", "Nombre","Zona ID", {
+            columns: ["ID", "Nombre", "Zona ID", {
                 name: "Acciones",
                 width: '60vh',
                 formatter: (cell, row) => {
