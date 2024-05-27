@@ -5,15 +5,7 @@
                 <h1>Cargos</h1>
             </div>
             <div class="col text-right">
-                <form id="create-form" action="{{ route('cargos.store') }}" method="post" class="row">
-                    @csrf
-                    <div class="col">
-                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
-                    </div>
-                    <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Cargo</button>
-                    </div>
-                </form>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Cargo</button>
             </div>
         </div>
     </div>
@@ -45,6 +37,21 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="saveButton">Guardar cambios</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="create-form" action="{{ route('cargos.store') }}" method="post" class="row">
+                    @csrf
+                    <div class="col">
+                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="col-auto d-flex align-items-center">
+                        <button type="submit" class="w-100 btn btn-primary">Crear Cargo</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
