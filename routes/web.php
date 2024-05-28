@@ -20,7 +20,7 @@ use App\Http\Controllers\AveriasAnonimasController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('averiasAnonimas.index');
 });
 
 Route::middleware([
