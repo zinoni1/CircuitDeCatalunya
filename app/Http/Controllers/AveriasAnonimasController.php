@@ -27,6 +27,7 @@ class AveriasAnonimasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
     public function store(Request $request)
     {
         // Validar los datos del formulario
@@ -51,9 +52,11 @@ class AveriasAnonimasController extends Controller
         if ($request->ajax()) {
             return response()->json(['success' => true, 'averia' => $averia], 200);
         } else {
-            return redirect()->route('averiasAnonimas.index')->with('success', 'Avería creada exitosamente.');
-        }
+            // Cambia la ruta de redirección a la ruta del formulario de creación
+        return redirect()->back();
     }
+}
+    
     
 
     /**
