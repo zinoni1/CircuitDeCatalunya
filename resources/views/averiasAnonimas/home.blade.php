@@ -27,7 +27,7 @@
 
                 <div class="w-100">
 
-                    <form id="create-form" action="{{ route('averiasAnonimas.store') }}" method="post" class="row">
+                    <form id="create-form" action="{{ route('averiasAnonimas.store') }}" method="post" enctype="multipart/form-data" class="row">
                         @csrf
 
                         <div class="form-group">
@@ -47,10 +47,16 @@
                                 placeholder="Ingrese su email">
                         </div>
 
+                        <div class="form-group">
+                            <label for="imagen">Imagen de la avería:</label>
+                            <input type="file" class="form-control" id="imagen" name="imagen">
+                        </div>
+
                         <div class="col-auto d-flex align-items-center w-100 mt-1">
                             <button type="submit" class="w-100 btn btn-primary">Avisar averia</button>
                         </div>
-                        </form>
+                    </form>
+                    
                 </div>
             </div>
         </div>
