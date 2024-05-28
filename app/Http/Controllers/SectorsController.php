@@ -73,9 +73,21 @@ class SectorsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, sectors $sectors)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'zona_id' =>'required'
+        ]);
+
+        $sector = sectors::find($id);
+        if (!$sector) {
+            return response()->json(['error' => 'Cargo not found'], 404);
+        }
+
+        $sector->update($request->all());
+
+        return response()->json(['success' => true], 200);
     }
 
     /**

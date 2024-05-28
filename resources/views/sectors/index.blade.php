@@ -5,7 +5,8 @@
                 <h1>sectors</h1>
             </div>
             <div class="col text-right">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Sector</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target=".bd-example-modal-lg">Crear Sector</button>
             </div>
         </div>
     </div>
@@ -15,7 +16,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -29,19 +31,27 @@
                         <div class="form-group">
                             <label for="editNombre">Nombre del Sector</label>
                             <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                            <select class="form-control" id="zona_id" name="zona_id">
+                                @foreach($zonas as $zona)
+                                    <option value="{{ $zona->id }}">
+                                        {{ $zona->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <input type="hidden" id="editId" name="id">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="saveButton">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Guardar canvis</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <form action="{{ route('sectors.store') }}" method="POST">
@@ -50,7 +60,7 @@
                     <label for="zona_id">Zona:</label>
                     <select id="zona_id" name="zona_id">
                         @foreach ($zonas as $zona)
-                        <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
+                            <option value="{{ $zona->id }}">{{ $zona->nombre }}</option>
                         @endforeach
                     </select>
                     <label for="">
@@ -120,7 +130,7 @@
                                     data: {
                                         _token: "{{ csrf_token() }}",
                                     },
-                                    success: function(response) {
+                                    success: function (response) {
                                         if (response.success) {
                                             deleteRow(id);
                                         } else {
@@ -197,12 +207,12 @@
         }
 
         // Controlador de eventos para el formulario de creación
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Obtener los datos iniciales de la tabla del servidor
             $.ajax({
                 url: '/sectors',
                 type: 'GET',
-                success: function(response) {
+                success: function (response) {
                     // Comprobar si response.zonas es un array
                     if (response && Array.isArray(response.sectors)) {
                         // Actualizar la tabla con los datos recibidos
@@ -215,11 +225,13 @@
             });
         });
 
-        $('#saveButton').click(function(event) {
+        $('#saveButton').click(function (event) {
             event.preventDefault();
 
             var id = $('#editId').val();
             var nombre = $('#editNombre').val();
+            var zona_id = $('#zona_id').val();
+
 
             $.ajax({
                 url: '/sectors/' + id,
@@ -228,9 +240,10 @@
                     _token: "{{ csrf_token() }}",
                     _method: 'PUT',
                     nombre: nombre,
+                    zona: zona_id,
                     id: id
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         location.reload();
 
@@ -255,7 +268,7 @@
             myModal.show();
         }
 
-        $('#editModal').on('show.bs.modal', function(event) {
+        $('#editModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Botón que activó el modal
             var id = button.data('id'); // Extrae el ID del sector del atributo data-id
 
