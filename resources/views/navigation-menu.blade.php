@@ -31,6 +31,9 @@
                     <x-nav-link href="{{ route('sectors.index') }}" :active="request()->routeIs('sectors.index')">
                         Sectores
                     </x-nav-link>
+                    <x-nav-link href="{{ route('averiasAnonimas.index') }}" :active="request()->routeIs('averiasAnonimas.index')">
+                        Averias Anonimas
+                    </x-nav-link>
                 </div>
  
 
@@ -117,12 +120,6 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-dropdown-link>
-                            @endif
 
                             <div class="border-t border-gray-200"></div>
 
