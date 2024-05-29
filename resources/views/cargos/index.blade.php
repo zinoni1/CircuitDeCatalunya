@@ -2,10 +2,10 @@
     <div class="modul container p-3">
         <div class="row w-100">
             <div class="col-auto d-flex align-items-center">
-                <h1>Cargos</h1>
+                <h1>Càrrecs</h1>
             </div>
             <div class="col text-right">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Cargo</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Càrrec</button>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Editar Cargo</h5>
+                    <h5 class="modal-title" id="editModalLabel">Editar Càrrec</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -27,15 +27,15 @@
                 <div class="modal-body">
                     <form id="editForm">
                         <div class="form-group">
-                            <label for="editNombre">Nombre del Cargo</label>
+                            <label for="editNombre">Nom del Càrrec</label>
                             <input type="text" class="form-control" id="editNombre" name="nombre" required>
                         </div>
                         <input type="hidden" id="editId" name="id">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="saveButton">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Guardar canvis</button>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                         <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Cargo</button>
+                        <button type="submit" class="w-100 btn btn-primary">Crear Càrrec</button>
                     </div>
                 </form>
             </div>
@@ -67,8 +67,8 @@
         let data = cargos.map(cargo => [cargo.id, cargo.nombre]);
 
         let table = new gridjs.Grid({
-            columns: ["ID", "Nombre", {
-                name: "Acciones",
+            columns: ["ID", "Nom", {
+                name: "Accions",
                 width: '60vh',
                 formatter: (cell, row) => {
                     return gridjs.h('div', {}, [
@@ -118,7 +118,7 @@
                                         if (response.success) {
                                             deleteRow(id);
                                         } else {
-                                            alert('Error al eliminar el registro');
+                                            alert('Error al eliminar el registre');
                                         }
                                     }
                                 });
@@ -229,7 +229,7 @@
                         location.reload();
 
                     } else {
-                        alert('Error al actualizar el registro');
+                        alert('Error al actualizar el registre');
                     }
                 }
             });

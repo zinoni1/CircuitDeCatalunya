@@ -3,10 +3,10 @@
     <div class="modul-fluid container-fluid p-3">
         <div class="row">
             <div class="col align-self-center">
-                <h1>Incidencies</h1>
+                <h1>Incidències</h1>
             </div>
             <div class="col text-right">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Incidencia</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Incidència</button>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <div class="modal-content">
                 <form id="form-id" method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myLargeModalLabel">Crear Averia</h5>
+                        <h5 class="modal-title" id="myLargeModalLabel">Crear Avaria</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -26,31 +26,31 @@
                         @csrf
                         <input type="hidden" id="id" name="creator_id" value="{{ Auth::id() }}">
                         <div class="form-group">
-                            <label for="Incidencia">Incidencia</label>
+                            <label for="Incidencia">Incidència</label>
                             <input type="text" class="form-control" id="Incidencia" name="Incidencia" placeholder="Incidencia">
                         </div>
                         <div class="form-group">
-                            <label for="descripcion">Descripción</label>
+                            <label for="descripcion">Descripció</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="data_inicio">Fecha de Inicio</label>
+                            <label for="data_inicio">Data d'inici</label>
                             <input type="date" class="form-control" id="data_inicio" name="data_inicio" value="<?php echo date('Y-m-d'); ?>">
                         </div>
                         <div class="form-group">
-                            <label for="prioridad">Prioridad</label>
+                            <label for="prioridad">Prioritat</label>
                             <select class="form-control" id="prioridad" name="prioridad">
                                 <option value="alta">Alta</option>
-                                <option value="media">Media</option>
-                                <option value="baja">Baja</option>
+                                <option value="media">Mitja</option>
+                                <option value="baja">Baixa</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="imagen">Imagen</label>
+                            <label for="imagen">Imatge</label>
                             <input type="file" class="form-control-file" id="imagen" name="imagen">
                         </div>
                         <div class="form-group">
-                            <label for="tecnico_asignado_id">Técnico Asignado ID</label>
+                            <label for="tecnico_asignado_id">Tècnic assignat ID</label>
                             <select class="form-control" id="tecnico_asignado_id" name="tecnico_asignado_id">
                                 @foreach($usuarios as $usuario)
                                 <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
@@ -66,7 +66,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="tipo_averias_id">Tipo Averia</label>
+                            <label for="tipo_averias_id">Tipus Avaria</label>
                             <select class="form-control" id="tipo_averias_id" name="tipo_averias_id">
                                 @foreach($tipoAverias as $tipoAveria)
                                 <option value="{{ $tipoAveria->id }}">{{ $tipoAveria->nombre }}</option>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel·lar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
@@ -113,15 +113,15 @@
         let table = new gridjs.Grid({
             columns: [
                 "ID",
-                "Incidencia",
-                "Tipo Averia",
-                "Prioridad",
-                "Inicio",
-                "Estado",
-                "Tecnico",
+                "Incidència",
+                "Tipus Avaria",
+                "Prioritat",
+                "Inici",
+                "Estat",
+                "Tècnic",
                 "Zona",
                 {
-                    name: "Acciones",
+                    name: "Accions",
                     width: '100vh',
                     formatter: (cell, row) => {
                         return gridjs.h('div', {}, [
@@ -226,7 +226,7 @@
                             // Actualizar la celda para mostrar la fecha actual
                             select.replaceWith(new Date().toISOString().slice(0, 10));
                         } else {
-                            alert('Error al actualizar el registro');
+                            alert('Error al actualizar el registre');
                         }
                     }
                 });

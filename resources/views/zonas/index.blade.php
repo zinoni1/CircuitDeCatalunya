@@ -2,7 +2,7 @@
     <div class="modul container p-3">
         <div class="row w-100">
             <div class="col-auto d-flex align-items-center">
-                <h1>Zonas</h1>
+                <h1>Zones</h1>
             </div>
             <div class="col text-right">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Zona</button>
@@ -19,7 +19,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Editar Cargo</h5>
+                    <h5 class="modal-title" id="editModalLabel">Editar Zona</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -27,15 +27,15 @@
                 <div class="modal-body">
                     <form id="editForm">
                         <div class="form-group">
-                            <label for="editNombre">Nombre del Cargo</label>
+                            <label for="editNombre">Nom de la zona</label>
                             <input type="text" class="form-control" id="editNombre" name="nombre" required>
                         </div>
                         <input type="hidden" id="editId" name="id">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="saveButton">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                    <button type="button" class="btn btn-primary" id="saveButton">Guardar canvis</button>
                 </div>
             </div>
         </div>
@@ -67,8 +67,8 @@
         let data = zonas.map(zona => [zona.id, zona.nombre]);
 
         let table = new gridjs.Grid({
-            columns: ["ID", "Nombre", {
-                name: "acciones",
+            columns: ["ID", "Nom", {
+                name: "Accions",
                 width: '100vh',
                 formatter: (cell, row) => {
                     return gridjs.h('div', {}, [
