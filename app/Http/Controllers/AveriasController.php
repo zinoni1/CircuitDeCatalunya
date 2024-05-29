@@ -73,9 +73,11 @@ class AveriasController extends Controller
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imageName = time().'.'.$request->imagen->extension();
-        $request->imagen->move(public_path('images'), $imageName);
-
+        $imageName = null;
+        if ($request->hasFile('imagen')) {
+            $imageName = time().'.'.$request->imagen->extension();  
+            $request->imagen->move(public_path('images'), $imageName);
+        }
 
         $averia = averias::create([
             'Incidencia' => $request->Incidencia,
@@ -184,17 +186,6 @@ public function dashboard2()
     /**
      * Show the form for editing the specified resource.
      */
-    public function editDataFin($id)
-    {
-        $averia = Averias::find($id);
-
-        //editar la fecha de finalización de la avería
-        $averia->data_fin = now();
-        $averia->save();
-
-        return response()->json(1, 200);
-    }
-
     public function edit(averias $averias)
     {
         //
@@ -291,3 +282,4 @@ public function dashboard2()
     }
 
 }
+//acabat
