@@ -32,7 +32,7 @@
                         Sectors
                     </x-nav-link>
                     <x-nav-link href="{{ route('averiasAnonimas.index') }}" :active="request()->routeIs('averiasAnonimas.index')">
-                        Avarias anònimes
+                        Avarias alienes
                     </x-nav-link>
                 </div>
  
