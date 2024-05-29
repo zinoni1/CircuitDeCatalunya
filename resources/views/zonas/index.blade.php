@@ -5,15 +5,7 @@
                 <h1>Zonas</h1>
             </div>
             <div class="col text-right">
-                <form id="create-form" action="{{ route('zonas.store') }}" method="post" class="row">
-                    @csrf
-                    <div class="col">
-                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
-                    </div>
-                    <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Zona</button>
-                    </div>
-                </form>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Zona</button>
             </div>
         </div>
     </div>
@@ -49,6 +41,21 @@
         </div>
     </div>
 
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="create-form" action="{{ route('zonas.store') }}" method="post" class="row">
+                    @csrf
+                    <div class="col">
+                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="col-auto d-flex align-items-center">
+                        <button type="submit" class="w-100 btn btn-primary">Crear Zona</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -62,7 +69,7 @@
         let table = new gridjs.Grid({
             columns: ["ID", "Nombre", {
                 name: "acciones",
-                width: '10vh',
+                width: '100vh',
                 formatter: (cell, row) => {
                     return gridjs.h('div', {}, [
                         gridjs.h('button', {

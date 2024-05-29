@@ -62,6 +62,7 @@ input[type="checkbox"]:checked {
 .btn-primary {
   color: var(--secondary-color);
   background-color: var(--primary-color);
+  border: 2px solid var(--primary-color) !important;
   border-radius: 5px;
   padding-top: 0.8vh;
   padding-bottom: 0.8vh;
@@ -69,15 +70,15 @@ input[type="checkbox"]:checked {
 }
 
 .btn-primary:focus-visible {
-  background-color: var(--focusVisible-color);
+  background-color: var(--focusVisible-color) !important;
   box-shadow: 0px var(--primary-color) !important;
   border-color: var(--focusVisible-color) !important;
 }
 
 .btn-primary:hover {
-  color: var(--primary-color);
-  background-color: var(--transparent-color);
-  border: 2px solid var(--primary-color);
+  color: var(--primary-color) !important;
+  background-color: var(--transparent-color) !important;
+  border: 2px solid var(--primary-color) !important;
 }
 
 .btn-primary:active {

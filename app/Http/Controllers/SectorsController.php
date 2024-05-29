@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\sectors;
+use App\Models\zonas;
 use Illuminate\Http\Request;
 
 class SectorsController extends Controller
@@ -12,11 +13,12 @@ class SectorsController extends Controller
      */
     public function index()
     {
-        $sectors = sectors::all();
-        return view('sectors.index', ['sectors' => $sectors]);
+        $sectors = sectors::with('zona')->get();
+        $zonas = zonas::all();
+        return view('sectors.index', ['sectors' => $sectors, 'zonas' => $zonas]);
     }
     public function indexAndroid(){
-        $sectors = sectors::all();
+        $sectors = sectors::all();  
         return response()->json($sectors, 200);
     }
 
@@ -28,11 +30,11 @@ class SectorsController extends Controller
      */
     public function create()
     {
-        //
+    
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.º
      */
     public function store(Request $request)
     {
@@ -46,7 +48,7 @@ class SectorsController extends Controller
             'zona_id' => $request->zona_id,
         ]);
 
-        return response()->json(['success' => true, 'sectors' => $sectors], 200);
+        return redirect()->route('sectors.index')->with('success', 'Zona creado exitosamente.');
     }
 
     /**
@@ -71,9 +73,21 @@ class SectorsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, sectors $sectors)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'zona_id' =>'required'
+        ]);
+
+        $sector = sectors::find($id);
+        if (!$sector) {
+            return response()->json(['error' => 'Cargo not found'], 404);
+        }
+
+        $sector->update($request->all());
+
+        return response()->json(['success' => true], 200);
     }
 
     /**

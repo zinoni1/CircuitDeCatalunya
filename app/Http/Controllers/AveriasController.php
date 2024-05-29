@@ -70,11 +70,12 @@ class AveriasController extends Controller
             'tecnico_asignado_id' => 'required',
             'zona_id' => 'required',
             'tipo_averias_id' => 'required',
-            'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $imageName = time().'.'.$request->imagen->extension();
         $request->imagen->move(public_path('images'), $imageName);
+
 
         $averia = averias::create([
             'Incidencia' => $request->Incidencia,
@@ -225,7 +226,7 @@ public function dashboard2()
         if ($request->hasFile('imagen')) {
             $imagen = $request->file('imagen');
             $nombreImagen = time() . '.' . $imagen->getClientOriginalExtension();
-            $ubicacion = public_path('/imagenes/averias');
+            $ubicacion = public_path('/images');
             $imagen->move($ubicacion, $nombreImagen);
 
             // Guardar el nombre de la imagen en la base de datos
@@ -261,7 +262,7 @@ public function dashboard2()
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id)    
     {
         $averia = averias::find($id);
         if ($averia) {
@@ -271,19 +272,22 @@ public function dashboard2()
             return response()->json(['success' => false]);
         }
     }
-
     public function calendarEvents()
-{
-    $averias = averias::all()->map(function ($averia) {
-        return [
-            'title' => $averia->Incidencia,
-            'start' => $averia->data_inicio,
-            'end' => $averia->data_fin,
-            'url' => route('averias.show', $averia->id),
-        ];
-    });
+    {
+        $averias = averias::all()->map(function ($averia) {
+            // Asignar un color según si la avería está finalizada o no
+            $color = $averia->data_fin !== null ? '#28a745' : '#dc3545';  // verde si está finalizada, rojo si está pendiente
 
-    return response()->json($averias);
-}
+            return [
+                'title' => $averia->Incidencia,
+                'start' => $averia->data_inicio,
+                'end' => $averia->data_fin,
+                'url' => route('averias.show', $averia->id),
+                'color' => $color,  // Agregar esta línea
+            ];
+        });
+
+        return response()->json($averias);
+    }
 
 }

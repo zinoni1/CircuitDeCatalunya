@@ -17,19 +17,22 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('tipo-averias.index') }}" :active="request()->routeIs('tipo-averias.index')">
-                        Ver Tipo de Averías
+                        Tipo de Averías
                     </x-nav-link>
                     <x-nav-link href="{{ route('averias.index') }}" :active="request()->routeIs('averias.index')">
-                        Ver Incidencias
+                        Incidencias
                     </x-nav-link>
                     <x-nav-link href="{{ route('zonas.index')}}" :active="request()->routeIs('zonas.index')">
-                        Ver Zonas
+                        Zonas
                     </x-nav-link>
                     <x-nav-link href="{{ route('cargos.index')}}" :active="request()->routeIs('cargos.index')">
-                        Ver Cargos
+                        Cargos
                     </x-nav-link>
                     <x-nav-link href="{{ route('sectors.index') }}" :active="request()->routeIs('sectors.index')">
-                        Ver Sectores
+                        Sectores
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('averiasAnonimas.index') }}" :active="request()->routeIs('averiasAnonimas.index')">
+                        Averias Anonimas
                     </x-nav-link>
                 </div>
  
@@ -117,12 +120,6 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-dropdown-link>
-                            @endif
 
                             <div class="border-t border-gray-200"></div>
 

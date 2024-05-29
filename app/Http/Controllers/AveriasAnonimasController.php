@@ -12,7 +12,8 @@ class AveriasAnonimasController extends Controller
      */
     public function index()
     {
-        return view('averiasAnonimas.index');
+        $averias = averias_anonimas::all();
+        return view('averiasAnonimas.index', compact('averias'));
     }
 
     /**
@@ -26,18 +27,52 @@ class AveriasAnonimasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
     public function store(Request $request)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'email' => 'required|string|email|max:255',
+            'descripcion' => 'required|string|max:255',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = null;
+        if ($request->hasFile('imagen')) {
+            $imageName = time().'.'.$request->imagen->extension();  
+            $request->imagen->move(public_path('images'), $imageName);
+        }
+
+        $averia = averias_anonimas::create([
+            'email' => $request->email,
+            'descripcion' => $request->descripcion,
+            'imagen' => $imageName,
+        ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'averia' => $averia], 200);
+        } else {
+            // Cambia la ruta de redirección a la ruta del formulario de creación
+        return redirect()->back();
     }
+}
+    
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(averias_anonimas $averias_anonimas)
+ 
+
+    public function show($id)
     {
-        //
+        // Buscar la avería anónima por su ID
+        $averia = averias_anonimas::findOrFail($id);
+
+        // Pasar la avería anónima a la vista
+        return view('averiasAnonimas.show', compact('averia'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -52,7 +87,6 @@ class AveriasAnonimasController extends Controller
      */
     public function update(Request $request, averias_anonimas $averias_anonimas)
     {
-        //
     }
 
     /**
@@ -60,6 +94,5 @@ class AveriasAnonimasController extends Controller
      */
     public function destroy(averias_anonimas $averias_anonimas)
     {
-        //
     }
 }

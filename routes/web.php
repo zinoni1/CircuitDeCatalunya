@@ -20,7 +20,7 @@ use App\Http\Controllers\AveriasAnonimasController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('averiasAnonimas.home');
 });
 
 Route::middleware([
@@ -32,11 +32,20 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('averiasAnonimas', AveriasAnonimasController::class);
+
 Route::middleware('auth')->group(function () {
     Route::resource('averias', AveriasController::class);
     Route::resource('zonas', ZonasController::class);
     Route::resource('tipo-averias', TipoAveriasController::class);
     Route::resource('cargos', CargosController::class);
+    Route::resource('tipo-averias', TipoAveriasController::class);
+    Route::resource('sectors', SectorsController::class);
+    Route::resource('averias', AveriasController::class);
+    Route::get('/dashboard', [AveriasController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [AveriasController::class, 'dashboard2'])->name('dashboard');
+    Route::get('/calendar/events', [AveriasController::class, 'calendarEvents'])->name('calendar.events');
     Route::put('averias/{averia}/data_fin', [AveriasController::class, 'updateDataFin'])->name('averias.updateDataFin');
 });
 
@@ -45,21 +54,3 @@ Route::middleware('auth')->group(function () {
 Route::fallback(function () {
     return view('welcome');
 });
-
-Route::resource('averias', AveriasController::class);
-
-// Ruta para devolver la vista index.blade.php desde la ubicación especificada
-
-
-Route::resource('tipo-averias', TipoAveriasController::class);
-
-Route::resource('sectors', SectorsController::class);
-Route::resource('averiasAnonimas', AveriasAnonimasController::class);
-
-Route::get('/dashboard', [AveriasController::class, 'dashboard'])->name('dashboard');
-Route::get('/dashboard', [AveriasController::class, 'dashboard2'])->name('dashboard');
-
-Route::get('/calendar/events', [AveriasController::class, 'calendarEvents'])->name('calendar.events');
-
-
-

@@ -5,15 +5,7 @@
                 <h1>Tipus d'Averies</h1>
             </div>
             <div class="col text-right">
-                <form id="create-form" action="{{ route('tipo-averias.store') }}" method="post" class="row">
-                    @csrf
-                    <div class="col">
-                        <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
-                    </div>
-                    <div class="col-auto d-flex align-items-center">
-                        <button type="submit" class="w-100 btn btn-primary">Crear Tipus d'Averia</button>
-                    </div>
-                </form>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Tipus d'Averia</button>
             </div>
         </div>
     </div>
@@ -79,6 +71,48 @@
                 </li>
             </ul>
         </nav>
+
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Editar Cargo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editForm">
+                            <div class="form-group">
+                                <label for="editNombre">Nombre del Cargo</label>
+                                <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                            </div>
+                            <input type="hidden" id="editId" name="id">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="saveButton">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form id="create-form" action="{{ route('tipo-averias.store') }}" method="post" class="row">
+                        @csrf
+                        <div class="col">
+                            <input type="text" class="create-input h-100 form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="col-auto d-flex align-items-center">
+                            <button type="submit" class="w-100 btn btn-primary">Crear Tipus d'Averia</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -210,27 +244,27 @@
 
         let currentPage = 1;
         const rowsPerPage = 5;
-        
+
         function updateTable() {
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
-        
+
             const rows = document.querySelectorAll('#table-body tr');
             rows.forEach((row, index) => {
                 row.style.display = (start <= index && index < end) ? 'table-row' : 'none';
             });
-        
+
             const totalRows = rows.length;
             const totalPages = Math.ceil(totalRows / rowsPerPage);
-        
+
             const paginationContainer = document.querySelector('#pagination-container');
             // Elimina todos los elementos de paginación actuales, excepto los botones "Anterior" y "Siguiente"
             paginationContainer.querySelectorAll('.page-item:not(:first-child):not(:last-child)').forEach(item => item.remove());
-        
+
             for (let i = 1; i <= totalPages; i++) {
                 const li = document.createElement('li');
                 li.classList.add('page-item');
-        
+
                 const a = document.createElement('a');
                 a.textContent = i;
                 a.classList.add('page-link');
@@ -240,12 +274,12 @@
                     currentPage = i;
                     updateTable();
                 });
-        
+
                 li.appendChild(a);
                 // Inserta el nuevo elemento de paginación antes del botón "Siguiente"
                 paginationContainer.insertBefore(li, paginationContainer.lastElementChild);
             }
-        
+
             document.querySelector('#previous-page').addEventListener('click', (e) => {
                 e.preventDefault();
                 if (currentPage > 1) {
@@ -253,7 +287,7 @@
                     updateTable();
                 }
             });
-            
+
             document.querySelector('#next-page').addEventListener('click', (e) => {
                 e.preventDefault();
                 const totalRows = document.querySelectorAll('#table-body tr').length;
@@ -264,7 +298,7 @@
                 }
             });
         }
-        
+
         updateTable();
     </script>
 </x-app-layout>
