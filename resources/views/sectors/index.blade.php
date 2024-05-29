@@ -29,7 +29,7 @@
                 <div class="modal-body">
                     <form id="editForm">
                         <div class="form-group">
-                            <label for="editNombre">Nombre del Sector</label>
+                            <label for="editNombre">Nom del Sector</label>
                             <input type="text" class="form-control" id="editNombre" name="nombre" required>
                             <select class="form-control" id="zona_id" name="zona_id">
                                 @foreach($zonas as $zona)
@@ -83,8 +83,8 @@
         let data = sectors.map(sector => [sector.id, sector.nombre, sector.zona.nombre]);
 
         let table = new gridjs.Grid({
-            columns: ["ID", "Nombre", "Zona ID", {
-                name: "Acciones",
+            columns: ["ID", "Nom", "Zona ID", {
+                name: "Accions",
                 width: '60vh',
                 formatter: (cell, row) => {
                     return gridjs.h('div', {}, [
@@ -134,7 +134,7 @@
                                         if (response.success) {
                                             deleteRow(id);
                                         } else {
-                                            alert('Error al eliminar el registro');
+                                            alert('Error al eliminar el registre');
                                         }
                                     }
                                 });
@@ -246,7 +246,7 @@
                     if (response.success) {
                         location.reload();
                     } else {
-                        alert('Error al actualizar el registro');
+                        alert('Error al actualizar el registre');
                     }
                 }
             });
