@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Models\Averias;
 
 class ApiController extends Controller
 {
@@ -82,6 +83,59 @@ public function verifyCredentials($email, $password){
     /**
      * Store a newly created resource in storage.
      */
+
+     public function cambiarPassword($id, $password)
+     {
+         $user = User::findOrFail($id);
+
+         $user->password = Hash::make($password);
+
+         // Guardar la contraseña y verificar si se guardó correctamente
+         if ($user->save()) {
+             return response()->json(1, 200);
+         } else {
+             return response()->json(0, 401);
+         }
+     }
+
+     public function averiesProgramades(){
+        $averias = Averias::all();
+
+        //count de averias
+        $count = count($averias);
+        return response()->json($count);
+     }
+
+     public function averiesUrgents(){
+        //averias donde la prioridad es alta
+        $averias = Averias::where('prioridad', 'alta')->get();
+
+        //count de averias
+        $count = count($averias);
+        return response()->json($count);
+     }
+
+     public function statsPendents()
+     {
+         // Obtener la fecha de mañana
+         $mañana = date('Y-m-d', strtotime('+1 day'));
+
+         // Obtener las averías que son null o que tienen una fecha mayor a la de hoy
+            $averias = Averias::where('data_fin', null)
+                                ->orWhere('data_fin', '>', $mañana)
+                                ->get();
+
+
+
+         // Contar el número de averías pendientes
+         $pendents = count($averias);
+
+         // Retornar el número de averías pendientes como respuesta JSON
+         return response()->json($pendents);
+     }
+
+
+
     public function store(Request $request)
     {
         //
