@@ -227,12 +227,11 @@
 
         $('#saveButton').click(function (event) {
             event.preventDefault();
-
+        
             var id = $('#editId').val();
             var nombre = $('#editNombre').val();
             var zona_id = $('#zona_id').val();
-
-
+        
             $.ajax({
                 url: '/sectors/' + id,
                 type: 'POST',
@@ -240,13 +239,12 @@
                     _token: "{{ csrf_token() }}",
                     _method: 'PUT',
                     nombre: nombre,
-                    zona: zona_id,
+                    zona_id: zona_id,
                     id: id
                 },
                 success: function (response) {
                     if (response.success) {
                         location.reload();
-
                     } else {
                         alert('Error al actualizar el registro');
                     }
