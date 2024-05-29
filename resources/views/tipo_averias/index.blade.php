@@ -2,10 +2,10 @@
     <div class="modul container p-3">
         <div class="row w-100">
             <div class="col-auto d-flex align-items-center">
-                <h1>Tipus d'Averies</h1>
+                <h1>Tipus d'Avaries</h1>
             </div>
             <div class="col text-right">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Tipus d'Averia</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Crear Tipus d'Avaria</button>
             </div>
         </div>
     </div>

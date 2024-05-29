@@ -14,25 +14,25 @@
               <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Panell de control') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('tipo-averias.index') }}" :active="request()->routeIs('tipo-averias.index')">
-                        Tipo de Averías
+                        Tipus d'avaries
                     </x-nav-link>
                     <x-nav-link href="{{ route('averias.index') }}" :active="request()->routeIs('averias.index')">
-                        Incidencias
+                        Incidències
                     </x-nav-link>
                     <x-nav-link href="{{ route('zonas.index')}}" :active="request()->routeIs('zonas.index')">
-                        Zonas
+                        Zones
                     </x-nav-link>
                     <x-nav-link href="{{ route('cargos.index')}}" :active="request()->routeIs('cargos.index')">
-                        Cargos
+                        Càrrecs
                     </x-nav-link>
                     <x-nav-link href="{{ route('sectors.index') }}" :active="request()->routeIs('sectors.index')">
-                        Sectores
+                        Sectors
                     </x-nav-link>
                     <x-nav-link href="{{ route('averiasAnonimas.index') }}" :active="request()->routeIs('averiasAnonimas.index')">
-                        Averias Anonimas
+                        Avarias anònimes
                     </x-nav-link>
                 </div>
  

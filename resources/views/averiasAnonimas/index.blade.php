@@ -27,12 +27,12 @@
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="descripcion">Descripción</label>
+                            <label for="descripcion">Descripció</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
                         <button type="submit" class="btn btn-primary">Crear</button>
                     </div>
                 </form>
@@ -54,9 +54,9 @@
             columns: [
                 "ID",
                 "Email", 
-                "Descripción", 
+                "Descripció", 
                 {
-                    name: "Acciones",
+                    name: "Accions",
                     width: '100vh',
                     formatter: (cell, row) => {
                         let id = row.cells[0].data;
@@ -102,9 +102,9 @@
                 },
                 pagination: {
                     previous: 'Anterior',
-                    next: 'Siguiente',
-                    showing: 'Mostrando',
-                    results: () => 'Resultados'
+                    next: 'Següent',
+                    showing: 'Mostrant',
+                    results: () => 'Resultats'
                 }
             }
         }).render(document.getElementById("my-table"));

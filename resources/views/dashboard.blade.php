@@ -41,7 +41,7 @@
         var myChart2 = new Chart(ctx2, {
             type: 'pie',
             data: {
-                labels: ['Finalizadas', 'Pendents'],
+                labels: ['Finalitzades', 'Pendents'],
                 datasets: [{
                     data: [@json($averiasFinalizadas), @json($averiasNoFinalizadas)],
                     backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],

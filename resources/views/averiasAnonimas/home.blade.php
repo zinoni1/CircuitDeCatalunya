@@ -23,7 +23,7 @@
 
             <div id="second-column"
                 class="col-md-5 h-100 d-flex flex-column align-items-center justify-content-center d-none">
-                <h1 class="mb-4">Avisar incidencia</h1>
+                <h1 class="mb-4">Avisar incidència</h1>
 
                 <div class="w-100">
 
@@ -33,27 +33,27 @@
                         <div class="form-group">
                             <label for="problema">Problema:</label>
                             <input type="text" class="form-control" id="problema" name="problema"
-                                placeholder="Ingrese el problema">
+                                placeholder="Introdueixi el problema">
                         </div>
 
                         <div class="form-group">
-                            <label for="descripcion">Descripción:</label>
+                            <label for="descripcion">Descripció:</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email:</label>
                             <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Ingrese su email">
+                                placeholder="Introdueixi el seu correu electrònic">
                         </div>
 
                         <div class="form-group">
-                            <label for="imagen">Imagen de la avería:</label>
+                            <label for="imagen">Imatge de la avaria:</label>
                             <input type="file" class="form-control" id="imagen" name="imagen">
                         </div>
 
                         <div class="col-auto d-flex align-items-center w-100 mt-1">
-                            <button type="submit" class="w-100 btn btn-primary">Avisar averia</button>
+                            <button type="submit" class="w-100 btn btn-primary">Avisar avaria</button>
                         </div>
                     </form>
                     
